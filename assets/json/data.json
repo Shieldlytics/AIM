@@ -1,0 +1,145 @@
+{
+    "counterfeitProducts": [
+      {
+        "id": 1,
+        "name": "Luxury Handbags",
+        "category": "Fashion",
+        "estimatedCounterfeitValue": 50000000,
+        "seizuresReports": 1500,
+        "monthlyData": [
+          {"month": "January", "sales": 4000000, "quantity": 200, "profit": 1000000, "cogs": 3000000},
+          {"month": "February", "sales": 3500000, "quantity": 180, "profit": 850000, "cogs": 2650000},
+          {"month": "March", "sales": 4200000, "quantity": 210, "profit": 1200000, "cogs": 3000000},
+          {"month": "April", "sales": 3800000, "quantity": 190, "profit": 950000, "cogs": 2850000},
+          {"month": "May", "sales": 4500000, "quantity": 225, "profit": 1350000, "cogs": 3150000},
+          {"month": "June", "sales": 4800000, "quantity": 240, "profit": 1440000, "cogs": 3360000},
+          {"month": "July", "sales": 5000000, "quantity": 250, "profit": 1500000, "cogs": 3500000},
+          {"month": "August", "sales": 4700000, "quantity": 235, "profit": 1410000, "cogs": 3290000},
+          {"month": "September", "sales": 4500000, "quantity": 225, "profit": 1350000, "cogs": 3150000},
+          {"month": "October", "sales": 4300000, "quantity": 215, "profit": 1290000, "cogs": 3010000},
+          {"month": "November", "sales": 4100000, "quantity": 205, "profit": 1230000, "cogs": 2870000},
+          {"month": "December", "sales": 4400000, "quantity": 220, "profit": 1320000, "cogs": 3080000}
+        ],
+        "knownCounterfiters": [
+          {"name": "Counterfiters Inc.", "location": "China", "seizuresReports": 500},
+            {"name": "Fake Bags Ltd.", "location": "Italy", "seizuresReports": 200},
+            {"name": "Bags R Us", "location": "USA", "seizuresReports": 300},
+            {"name": "Bags 4 Less", "location": "USA", "seizuresReports": 400},
+            {"name": "Bags 4 U", "location": "USA", "seizuresReports": 200}
+        ]
+      },
+      {
+        "id": 2,
+        "name": "Sports Sneakers",
+        "category": "Footwear",
+        "estimatedCounterfeitValue": 30000000,
+        "seizuresReports": 1200,
+        "monthlyData": [
+          {"month": "January", "sales": 2500000, "quantity": 500, "profit": 1250000, "cogs": 1250000},
+          {"month": "February", "sales": 2000000, "quantity": 400, "profit": 1000000, "cogs": 1000000},
+          {"month": "March", "sales": 2700000, "quantity": 540, "profit": 1350000, "cogs": 1350000},
+          {"month": "April", "sales": 2200000, "quantity": 440, "profit": 1100000, "cogs": 1100000},
+          {"month": "May", "sales": 3000000, "quantity": 600, "profit": 1500000, "cogs": 1500000},
+          {"month": "June", "sales": 3200000, "quantity": 640, "profit": 1600000, "cogs": 1600000},
+          {"month": "July", "sales": 3400000, "quantity": 680, "profit": 1700000, "cogs": 1700000},
+          {"month": "August", "sales": 3100000, "quantity": 620, "profit": 1550000, "cogs": 1550000},
+          {"month": "September", "sales": 2900000, "quantity": 580, "profit": 1450000, "cogs": 1450000},
+          {"month": "October", "sales": 2800000, "quantity": 560, "profit": 1400000, "cogs": 1400000},
+          {"month": "November", "sales": 2600000, "quantity": 520, "profit": 1300000, "cogs": 1300000},
+          {"month": "December", "sales": 3000000, "quantity": 600, "profit": 1500000, "cogs": 1500000}
+        ],
+        "knownCounterfiters": [
+            {"name": "Fake Sneakers Ltd.", "location": "Italy", "seizuresReports": 100},
+            {"name": "Sneakers R Us", "location": "USA", "seizuresReports": 200},
+            {"name": "Sneakers Inc.", "location": "China", "seizuresReports": 300},
+            {"name": "Sneakers 4 Less", "location": "USA", "seizuresReports": 400},
+            {"name": "Sneakers 4 U", "location": "USA", "seizuresReports": 200}
+
+        ]
+      },
+      {
+        "id": 3,
+        "name": "Watches",
+        "category": "Accessories",
+        "estimatedCounterfeitValue": 20000000,
+        "seizuresReports": 800,
+        "monthlyData": [
+          {"month": "January", "sales": 1500000, "quantity": 300, "profit": 750000, "cogs": 750000},
+          {"month": "February", "sales": 1200000, "quantity": 240, "profit": 600000, "cogs": 600000},
+          {"month": "March", "sales": 1700000, "quantity": 340, "profit": 850000, "cogs": 850000},
+          {"month": "April", "sales": 1300000, "quantity": 260, "profit": 650000, "cogs": 650000},
+          {"month": "May", "sales": 1800000, "quantity": 360, "profit": 900000, "cogs": 900000},
+          {"month": "June", "sales": 1900000, "quantity": 380, "profit": 950000, "cogs": 950000},
+          {"month": "July", "sales": 2000000, "quantity": 400, "profit": 1000000, "cogs": 1000000},
+          {"month": "August", "sales": 1800000, "quantity": 360, "profit": 900000, "cogs": 900000},
+          {"month": "September", "sales": 1700000, "quantity": 340, "profit": 850000, "cogs": 850000},
+          {"month": "October", "sales": 1600000, "quantity": 320, "profit": 800000, "cogs": 800000},
+          {"month": "November", "sales": 1500000, "quantity": 300, "profit": 750000, "cogs": 750000},
+          {"month": "December", "sales": 1800000, "quantity": 360, "profit": 900000, "cogs": 900000}
+        ],
+        "knownCounterfiters": [
+            {"name": "Fake Watches Ltd.", "location": "Italy", "seizuresReports": 100},
+            {"name": "Watches R Us", "location": "USA", "seizuresReports": 200},
+            {"name": "Watches Inc.", "location": "China", "seizuresReports": 300},
+            {"name": "Watches 4 Less", "location": "USA", "seizuresReports": 400},
+            {"name": "Watches 4 U", "location": "USA", "seizuresReports": 200}
+        ]
+      },
+      {
+        "id": 4,
+        "name": "Perfumes",
+        "category": "Beauty",
+        "estimatedCounterfeitValue": 10000000,
+        "seizuresReports": 40000,
+        "monthlyData": [
+          {"month": "January", "sales": 800000, "quantity": 400, "profit": 400000, "cogs": 400000},
+          {"month": "February", "sales": 700000, "quantity": 350, "profit": 350000, "cogs": 350000},
+          {"month": "March", "sales": 850000, "quantity": 425, "profit": 425000, "cogs": 425000},
+          {"month": "April", "sales": 750000, "quantity": 375, "profit": 375000, "cogs": 375000},
+          {"month": "May", "sales": 900000, "quantity": 450, "profit": 450000, "cogs": 450000},
+          {"month": "June", "sales": 950000, "quantity": 475, "profit": 475000, "cogs": 475000},
+          {"month": "July", "sales": 1000000, "quantity": 500, "profit": 500000, "cogs": 500000},
+          {"month": "August", "sales": 900000, "quantity": 450, "profit": 450000, "cogs": 450000},
+          {"month": "September", "sales": 850000, "quantity": 425, "profit": 425000, "cogs": 425000},
+          {"month": "October", "sales": 800000, "quantity": 400, "profit": 400000, "cogs": 400000},
+          {"month": "November", "sales": 750000, "quantity": 375, "profit": 375000, "cogs": 375000},
+          {"month": "December", "sales": 850000, "quantity": 425, "profit": 425000, "cogs": 425000}
+        ],
+        "knownCounterfiters": [
+            {"name": "Fake Perfumes Ltd.", "location": "Italy", "seizuresReports": 100},
+            {"name": "Perfumes R Us", "location": "USA", "seizuresReports": 200},
+            {"name": "Perfumes Inc.", "location": "China", "seizuresReports": 300},
+            {"name": "Perfumes 4 Less", "location": "USA", "seizuresReports": 400},
+            {"name": "Perfumes 4 U", "location": "USA", "seizuresReports": 200}
+        ]
+    },{
+        "id": 5,
+        "name": "Wearing apparel",
+        "category": "Accessories",
+        "estimatedCounterfeitValue": 15000000,
+        "seizuresReports": 750000,
+        "monthlyData": [
+          {"month": "January", "sales": 1000000, "quantity": 500, "profit": 500000, "cogs": 500000},
+          {"month": "February", "sales": 900000, "quantity": 450, "profit": 450000, "cogs": 450000},
+          {"month": "March", "sales": 1100000, "quantity": 550, "profit": 550000, "cogs": 550000},
+          {"month": "April", "sales": 950000, "quantity": 475, "profit": 475000, "cogs": 475000},
+          {"month": "May", "sales": 1200000, "quantity": 600, "profit": 600000, "cogs": 600000},
+          {"month": "June", "sales": 1250000, "quantity": 625, "profit": 625000, "cogs": 625000},
+          {"month": "July", "sales": 1300000, "quantity": 650, "profit": 650000, "cogs": 650000},
+          {"month": "August", "sales": 1200000, "quantity": 600, "profit": 600000, "cogs": 600000},
+          {"month": "September", "sales": 1100000, "quantity": 550, "profit": 550000, "cogs": 550000},
+          {"month": "October", "sales": 1050000, "quantity": 525, "profit": 525000, "cogs": 525000},
+          {"month": "November", "sales": 1000000, "quantity": 500, "profit": 500000, "cogs": 500000},
+          {"month": "December", "sales": 1100000, "quantity": 550, "profit": 550000, "cogs": 550000}
+        ],
+        "knownCounterfiters": [
+            {"name": "Fake Sunglasses Ltd.", "location": "Italy", "seizuresReports": 100},
+            {"name": "Sunglasses R Us", "location": "USA", "seizuresReports": 200},
+            {"name": "Sunglasses Inc.", "location": "China", "seizuresReports": 300},
+            {"name": "Sunglasses 4 Less", "location": "USA", "seizuresReports": 400},
+            {"name": "Sunglasses 4 U", "location": "USA", "seizuresReports": 200}
+        ]
+    }
+    ]
+  }
+  
