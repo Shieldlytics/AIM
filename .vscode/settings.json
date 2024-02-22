@@ -1,5 +1,8 @@
 {
     "cSpell.words": [
         "risklevel"
-    ]
+    ],
+    "phpserver.phpPath": "/usr/local/Cellar/php@8.1/8.1.27/bin/php",
+    "phpserver.phpConfigPath": "/usr/local/Cellar/php@8.1",
+    "git.ignoreLimitWarning": true
 }

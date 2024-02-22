@@ -1,73 +1,72 @@
 <?php 
+
 function getConnection() {
-    $DB_DSN = "sqlsrv:server=tcp:guardian-dev-db.database.windows.net,1433;Database=GUARDIAN-DEV";
-    $DB_USER = "GUARDIAN";
-    $DB_PASSWORD = "Sh13ldlyt1c$";
+    $host = "pena-cloud.network";
+    $port = 19307;
+    $databaseName = "AIM";
+    $username = "ErnestPenaJr";
+    $password = "$268RedDragons";
+    $dsn = "mysql:host=$host;port=$port;dbname=$databaseName;charset=utf8mb4";
     try {
-        $conn = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+        $conn = new PDO($dsn, $username, $password);
+        // Set the PDO error mode to exception
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        return $conn;
-    } catch (PDOException $e) {
-        die("Error connecting to SQL Server: " . $e->getMessage());
+      
+    } catch(PDOException $e) {
+        echo "Connection failed: " . $e->getMessage();
     }
+    return $conn;    
+
 }
 
 if(isset($_POST["method"])) {
     $method = $_POST["method"];
-    if($method == "getByRiskLevel" && isset($_POST["riskLevel"])) {
-        getByRiskLevel($_POST["riskLevel"]);
-    } else {
-        header('Content-Type: application/json');
-        echo json_encode(["error" => "Invalid method or missing riskLevel"]);
-    }
+    $risklevel = $_POST["riskLevel"];
+    if($method=="getByRiskLevel") {getByLevel($risklevel);};
+    if($method=="getVendorProductCount") {getVendorProductCount($risklevel);};
 } else {
     header('Content-Type: application/json');
-    echo json_encode(["error" => "Invalid method"]);
+    echo json_encode(["error" => "Invalid method detected"]);
 }
 
-function getByRiskLevel($risklevel) {
+function getByLevel($risklevel) {
+    $risklevel = !empty($risklevel) ? $risklevel : " ";
     $pdo = getConnection(); // Assume this returns a PDO connection
+    // if $risklevel is empty, then return all records
+    if($risklevel == " ") {
+        $sql = "SELECT vd.VENDOR_ID,vd.VENDOR_NAME,vd.PRODUCT_NAME,vd.STREET_NAME,vd.CITY,vd.STATE,vd.ZIP_CODE,vd.SELLER_FIRST_NAME,vd.SELLER_LAST_NAME,vd.SELLER_PHONE,vd.SELLER_EMAIL,vd.SELLER_URL,vd.SELLER_NAME_CHANGE,vd.ARTICLE_FINDING,vd.ARTICLE_URL,vd.PRODUCT_GATEGORY,vd.ANNUAL_SALES,vd.VERIFIED_COMPANY,vd.PRICE_DIFFERANCE,vd.PRODUCT_PRICE,vd.DIFFRENT_ADDRESS,COALESCE(r.RATING_SCORE,0) AS RATING_SCORE,r.score_category,COALESCE(pd.Product_Diversity_Score,0) AS Product_Diversity_Score,COALESCE(pd.VERIFIED_COMPANY_SCORE,0) AS VERIFIED_COMPANY_SCORE, COALESCE(pd.TOTAL_SCORE,0) AS TOTAL_SCORE FROM VENDOR_DETAILS vd LEFT JOIN (SELECT VENDOR_NAME, COUNT(*) AS RATING_SCORE, CASE WHEN COUNT(*) >= 60 THEN 'TOP' WHEN COUNT(*) BETWEEN 50 AND 59 THEN 'HIGH' WHEN COUNT(*) BETWEEN 40 AND 49 THEN 'MODERATE' WHEN COUNT(*) <= 39 THEN 'LOW' END AS SCORE_CATEGORY FROM VENDOR_DETAILS GROUP BY VENDOR_NAME) AS r ON vd.VENDOR_NAME = r.VENDOR_NAME LEFT JOIN (SELECT VENDOR_NAME,COUNT(DISTINCT PRODUCT_NAME) AS PRODUCT_DIVERSITY_SCORE,MAX(CASE WHEN VERIFIED_COMPANY = 0 THEN 10 ELSE 0 END) AS Verified_Company_Score,COUNT(DISTINCT PRODUCT_NAME) + MAX(CASE WHEN VERIFIED_COMPANY = 0 THEN 10 ELSE 0 END) AS Total_Score FROM VENDOR_DETAILS GROUP BY VENDOR_NAME) AS pd ON vd.VENDOR_NAME = pd.VENDOR_NAME ORDER BY COALESCE(r.RATING_SCORE, 0) DESC";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $json = json_encode(array('items' => $result));
+        echo $json;
+        return;
+    }else{
+        $sql = "SELECT vd.VENDOR_ID,vd.VENDOR_NAME,vd.PRODUCT_NAME,vd.STREET_NAME,vd.CITY,vd.STATE,vd.ZIP_CODE,vd.SELLER_FIRST_NAME,vd.SELLER_LAST_NAME,vd.SELLER_PHONE,vd.SELLER_EMAIL,vd.SELLER_URL,vd.SELLER_NAME_CHANGE,vd.ARTICLE_FINDING,vd.ARTICLE_URL,vd.PRODUCT_GATEGORY,vd.ANNUAL_SALES,vd.VERIFIED_COMPANY,vd.PRICE_DIFFERANCE,vd.PRODUCT_PRICE,vd.DIFFRENT_ADDRESS,COALESCE(r.RATING_SCORE,0) AS RATING_SCORE,r.score_category,COALESCE(pd.Product_Diversity_Score,0) AS Product_Diversity_Score,COALESCE(pd.VERIFIED_COMPANY_SCORE,0) AS VERIFIED_COMPANY_SCORE, COALESCE(pd.TOTAL_SCORE,0) AS TOTAL_SCORE FROM VENDOR_DETAILS vd LEFT JOIN (SELECT VENDOR_NAME, COUNT(*) AS RATING_SCORE, CASE WHEN COUNT(*) >= 60 THEN 'TOP' WHEN COUNT(*) BETWEEN 50 AND 59 THEN 'HIGH' WHEN COUNT(*) BETWEEN 40 AND 49 THEN 'MODERATE' WHEN COUNT(*) <= 39 THEN 'LOW' END AS SCORE_CATEGORY FROM VENDOR_DETAILS GROUP BY VENDOR_NAME) AS r ON vd.VENDOR_NAME = r.VENDOR_NAME LEFT JOIN (SELECT VENDOR_NAME,COUNT(DISTINCT PRODUCT_NAME) AS PRODUCT_DIVERSITY_SCORE,MAX(CASE WHEN VERIFIED_COMPANY = 0 THEN 10 ELSE 0 END) AS Verified_Company_Score,COUNT(DISTINCT PRODUCT_NAME) + MAX(CASE WHEN VERIFIED_COMPANY = 0 THEN 10 ELSE 0 END) AS Total_Score FROM VENDOR_DETAILS GROUP BY VENDOR_NAME) AS pd ON vd.VENDOR_NAME = pd.VENDOR_NAME WHERE r.score_category = :risklevel ORDER BY COALESCE(r.RATING_SCORE, 0) DESC";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':risklevel', $risklevel);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $json = json_encode(array('items' => $result));
+        echo $json;
+    }
+}
 
-    $sql = "WITH RatingScores AS (
-        SELECT VENDOR_NAME,
-               COUNT(*) AS RATING_SCORE,
-               CASE
-                   WHEN COUNT(*) >= 35 THEN 'TOP'
-                   WHEN COUNT(*) BETWEEN 25 AND 34 THEN 'HIGH'
-                   WHEN COUNT(*) BETWEEN 15 AND 24 THEN 'MODERATE'
-                   WHEN COUNT(*) <= 14 THEN 'LOW'
-               END AS score_category
-        FROM DBO.VENDOR_DETAILS
-        GROUP BY VENDOR_NAME
-    ),
-    ProductDiversity AS (
-        SELECT VENDOR_NAME,
-               COUNT(DISTINCT PRODUCT_NAME) AS Product_Diversity_Score,
-               MAX(CASE WHEN VERIFIED_COMPANY = 0 THEN 10 ELSE 0 END) AS Verified_Company_Score,
-               COUNT(DISTINCT PRODUCT_NAME) + MAX(CASE WHEN VERIFIED_COMPANY = 0 THEN 10 ELSE 0 END) AS Total_Score
-        FROM DBO.VENDOR_DETAILS
-        GROUP BY VENDOR_NAME
-    )
-    SELECT vd.VENDOR_ID,
-           vd.VENDOR_NAME,
-           -- Include other fields as needed
-           COALESCE(r.RATING_SCORE, 0) AS RATING_SCORE,
-           r.score_category,
-           COALESCE(pd.Product_Diversity_Score, 0) AS Product_Diversity_Score,
-           COALESCE(pd.Verified_Company_Score, 0) AS Verified_Company_Score,
-           COALESCE(pd.Total_Score, 0) AS Total_Score
-    FROM VENDOR_DETAILS vd
-    LEFT JOIN RatingScores r ON vd.VENDOR_NAME = r.VENDOR_NAME
-    LEFT JOIN ProductDiversity pd ON vd.VENDOR_NAME = pd.VENDOR_NAME
-    WHERE r.score_category = :risklevel
-    ORDER BY RATING_SCORE DESC, Total_Score DESC";
-    $stmt = $pdo->prepare($sql);
-    $stmt->bindParam(':riskLevel', $riskLevel, PDO::PARAM_STR);
+function getVendorProductCount($risklevel) {
+    $pdo = getConnection(); // Assume this returns a PDO connection
+    if($risklevel == " ") {
+        $sql = "SELECT R.SCORE_CATEGORY,COUNT(DISTINCT VD.VENDOR_ID) AS DISTINCT_VENDOR_COUNT,COUNT(DISTINCT VD.PRODUCT_NAME) AS DISTINCT_PRODUCT_COUNT FROM VENDOR_DETAILS VD JOIN (SELECT VENDOR_NAME, CASE WHEN COUNT(*) >= 60 THEN 'TOP' WHEN COUNT(*) BETWEEN 50 AND 59 THEN 'HIGH' WHEN COUNT(*) BETWEEN 40 AND 49 THEN 'MODERATE' WHEN COUNT(*) <= 39 THEN 'LOW' END AS SCORE_CATEGORY FROM VENDOR_DETAILS GROUP BY VENDOR_NAME) AS R ON VD.VENDOR_NAME = R.VENDOR_NAME GROUP BY R.SCORE_CATEGORY ORDER BY DISTINCT_VENDOR_COUNT DESC, DISTINCT_PRODUCT_COUNT DESC";
+        $stmt = $pdo->prepare($sql);
+    }else{
+        $sql = "SELECT R.SCORE_CATEGORY,COUNT(DISTINCT VD.VENDOR_ID) AS DISTINCT_VENDOR_COUNT,COUNT(DISTINCT VD.PRODUCT_NAME) AS DISTINCT_PRODUCT_COUNT FROM VENDOR_DETAILS VD JOIN (SELECT VENDOR_NAME, CASE WHEN COUNT(*) >= 60 THEN 'TOP' WHEN COUNT(*) BETWEEN 50 AND 59 THEN 'HIGH' WHEN COUNT(*) BETWEEN 40 AND 49 THEN 'MODERATE' WHEN COUNT(*) <= 39 THEN 'LOW' END AS SCORE_CATEGORY FROM VENDOR_DETAILS GROUP BY VENDOR_NAME) AS R ON VD.VENDOR_NAME = R.VENDOR_NAME WHERE SCORE_CATEGORY = :risklevel GROUP BY R.SCORE_CATEGORY ORDER BY DISTINCT_VENDOR_COUNT DESC, DISTINCT_PRODUCT_COUNT DESC";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':risklevel', $risklevel);
+    }
     $stmt->execute();
-    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    header('Content-Type: application/json');
-    $json = json_encode(array('items' => $results));
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $json = json_encode(array('items' => $result));
     echo $json;
 }
+
 
 ?>

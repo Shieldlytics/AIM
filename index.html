@@ -19,14 +19,37 @@
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="node_modules/datatables.net-bs5/css/dataTables.bootstrap5.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
   </head>
+<style>
+.btn-custom {
+    background-color: #f97316; /* Example orange color */
+    color: white; /* Text color */
+}
 
+.btn-custom:hover {
+    background-color: #dd6b20; /* Darker shade of orange for hover effect */
+    color: white;
+}
+.varela-round-regular {
+  font-family: "Varela Round", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.bg-custom {
+    background-color: #466a9a;
+}
+
+
+</style>
   <body>
     <div class="main-container d-flex">
-      <div class="sidebar" id="side_nav">
+      <div class="sidebar border-2 border-end border-secondary bg-custom" id="side_nav">
         <div class="header-box px-2 pt-3 pb-4 d-flex justify-content-between">
-          <h1 class="fs-4">
-            <span class="bg-dark rounded shadow-sm px-2 me-2 text-white fs-2">A.I.M.</span>
+          <h1 class="fs-4 d-flex justify-content-center align-conent-center w-100">
+            <span class="rounded px-2 me-2 text-white fs-1" style="font-family: Varela Round, sans-serif">AIM</span>
           </h1>
           <button class="btn d-md-none d-block close-btn px-1 py-0 text-white">
             <i class="fal fa-stream"></i>
@@ -35,22 +58,22 @@
 
         <ul class="list-unstyled px-2">
           <li class="active">
-            <a href="#" class="text-decoration-none px-3 py-2 d-block text-dark fs-3" ><i class="fal fa-home"></i> Dashboard</a >
+            <a href="#" class="text-decoration-none px-3 py-2 d-block  fs-4" ><i class="fal fa-home"></i> Dashboard</a >
           </li>
           <li class="">
-            <a href="#" class="text-decoration-none px-3 py-2 d-block text-dark fs-3" ><i class="fal fa-sliders-h"></i> Settings</a >
+            <a href="#" class="text-decoration-none px-3 py-2 d-block  fs-4" ><i class="fal fa-sliders-h"></i> Settings</a >
           </li>
 
           <li class="">
-            <a href="#" class="text-decoration-none px-3 py-2 d-block text-dark fs-3" ><i class="fal fa-users"></i> Accounts</a >
+            <a href="#" class="text-decoration-none px-3 py-2 d-block  fs-4" ><i class="fal fa-users"></i> Accounts</a >
           </li>
           <li class="">
-            <a href="#" class="text-decoration-none px-3 py-2 d-block text-dark fs-3" ><i class="fal fa-user-headset"></i> Help</a >
+            <a href="#" class="text-decoration-none px-3 py-2 d-block  fs-4" ><i class="fal fa-user-headset"></i> Help</a >
           </li>
         </ul>
       </div>
       <div class="content">
-        <nav class="navbar navbar-expand-md navbar-light bg-white">
+        <nav class="navbar navbar-expand-md navbar-light border-2 border-bottom border-secondary shadow-md bg-secondary-subtle">
           <div class="container-fluid">
             <div class="d-flex justify-content-between d-md-none d-block">
               <button class="btn px-1 py-0 open-btn me-2"> <i class="fal fa-stream"></i> </button>
@@ -76,15 +99,26 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent" >
                 
               <ul class="navbar-nav mb-2 mb-lg-0">
-                <form>
-                  <select class="form-select" aria-label="Default select example">
-                    <option selected>Select Risk Level</option>
-                    <option value="1">TOP</option>
-                    <option value="2">HIGH</option>
-                    <option value="3">MODERATE</option>
-                    <option value="4">LOW</option>
-                  </select>
-                </form>
+                <ul class="navbar-nav mb-2 mb-lg-0">
+                  <li class="nav-item mx-1">
+                    <button id="resetAll" class="btn btn-light">Clear Filters</button>
+                  </li>
+                  <li class="nav-item">
+                    <button id=" " class="btn btn-dark btnX">View All Data</button>
+                  </li>
+                  <li class="nav-item mx-1">
+                    <button id="Top" class="btn btn-danger btnX">Top</button>
+                  </li>
+                  <li class="nav-item">
+                    <button id="High" class="btn btn-custom btnX">High</button>
+                  </li>
+                  <li class="nav-item mx-1">
+                    <button id="Moderate" class="btn btn-warning btnX">Moderate</button>
+                  </li>
+                  <li class="nav-item">
+                    <button id="Low" class="btn btn-primary btnX">Low</button>
+                  </li>
+                
                 <li class="nav-item">
                   <a class="nav-link" href="#"><i class="fas fa-bell-on"></i></a >
                 </li>
@@ -96,56 +130,53 @@
           </div>
         </nav>
         
-        <div class="dashboard-content px-3 pt-4">
+        <div class="dashboard-content px-3 pt-4 bg-secondary-subtle">
           <div class="row">
             <div class="col-md-4">
                 <div class="card mb-3">
                     <div class="card-body">
-                      <h3 class="card-title text-uppercase">Total number of...</h3>
+                      <h4 class="card-title text-uppercase">Key Performance Indicator</h4>
                         <div class="row">
-                            <div class="col-md-4 mb-3">
+                            <div class="col-md-12 mb-3">
                                 <div class="card h-100 shadow-sm">
                                   <div class="card-body justify-content-center align-items-center">
                                       <div class="d-flex justify-content-center align-items-center">
                                           <span class="text-uppercase fw-lighter">volume</span>
                                       </div>
                                       <div class="d-flex justify-content-center align-items-center">
-                                          <span class="fs-1 ms-2">15342</span>
+                                          <span id="volume" class="fs-2 ms-2">0</span>
                                       </div>
                                   </div>
                                 </div>
                             </div>
-
-                            <div class="col-md-4 mb-3">
+                            </div>
+<div class="row">
+                            <div class="col-md-6 mb-3">
                                 <div class="card h-100 shadow-sm">
                                     <div class="card-body justify-content-center align-items-center">
                                         <div class="d-flex justify-content-center align-items-center">
                                             <span class="text-uppercase fw-lighter">vendors</span>
                                         </div>
                                         <div class="d-flex justify-content-center align-items-center">
-                                            <span class="fs-1 ms-2">120</span>
+                                            <span id="vendors" class="fs-2 ms-2">0</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                               
-                            <div class="col-md-4 mb-3">
+                            <div class="col-md-6 mb-3">
                                 <div class="card h-100 shadow-sm">
                                     <div class="card-body justify-content-center align-items-center">
                                         <div class="d-flex justify-content-center align-items-center">
                                             <span class="text-uppercase fw-lighter">products</span>
                                         </div>
                                         <div class="d-flex justify-content-center align-items-center">
-                                            <span class="fs-1 ms-2">3542</span>
+                                            <span id="products" class="fs-2 ms-2">0</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            
                         </div>
-
-                            
-                            
                     </div>
                 </div>
             </div>
@@ -190,11 +221,11 @@
                 <div class="table-responsive">
                   <table
                     id="aimTblData"
-                    class="table table-striped data-table"
-                    style="width: 100%"
-                  >
+                    class="table table-sm table-striped data-table"
+                    style="width: 100%" >
                     <thead>
                       <tr>
+                        <th>RATING</th>
                         <th>SCORE</th>
                         <th>VENDOR NAME</th>
                         <th>PRODUCT NAME</th>
@@ -215,7 +246,7 @@
         </div>
       </div>
     </div>
-    
+
 
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
       <div class="offcanvas-header">
@@ -244,6 +275,58 @@
       </div>
      
     </div>
+
+
+    <div id="reportIt" class="modal fade" tabindex="-1">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Detailed Report "<span id="VendorName"></span>"</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p><span id="VENDOR_NAME"></span>, identified by Vendor ID <span id="VENDOR_ID" class="fw-bold"></span>, specializes in "<span id="PRODUCT_NAME" class="fw-bold"></span>", operating out of <span id="STREET_NAME" class="fw-bold"></span>, <span id="CITY" class="fw-bold"></span>, <span id="STATE" class="fw-bold"></span>, with the ZIP code <span id="ZIP_CODE" class="fw-bold"></span>.</p>
+            <p> The company, under the management of <span id="SELLER_FIRST_NAME" class="fw-bold"></span> <span id="SELLER_LAST_NAME" class="fw-bold"></span>, boasts an impressive annual sales figure of approximately <span id="ANNUAL_SALES" class="fw-bold"></span>, highlighting its significant impact in the <span id="PRODUCT_GATEGORY" class="fw-bold"></span>.</p>
+            <p>Despite a score category of <span id="score_category" class="fw-bold"></span> with a rating score of <span id="RATING_SCORE" class="fw-bold"></span> and a total score of <span id="TOTAL_SCORE" class="fw-bold"></span>, it maintains a product diversity score of <span id="Product_Diversity_Score" class="fw-bold"></span> and a verified company score of 10.</p>
+            <p>The contact details, inclusive of phone (<span id="SELLER_PHONE" class="fw-bold"></span>) and email (<span id="SELLER_EMAIL" class="fw-bold"></span>), alongside the seller's URL, provide avenues for further engagement. Notably, the vendor demonstrates adherence to verification standards, indicated by its status as a verified company. </p>
+            <p>Additionally, the alignment with market pricing is evident, with no reported price difference from the standard, setting the product price at <span id="PRODUCT_PRICE" class="fw-bold"></span>.</p>
+          <br>
+          <p>If you feel the rating of <span id="score_category" class="fw-bold"></span> is incorrect, you make submit your rating along with a detailed statement as to why the rating should be changed.</p>
+          <br>
+            <div class="card mb-">
+              <div class="card-body">
+                <h5 class="card-title">Rating Change</h5>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                  <label class="form-check-label" for="inlineRadio1">TOP</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                  <label class="form-check-label" for="inlineRadio2">HIGH</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+                  <label class="form-check-label" for="inlineRadio3">MODERATE</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option4">
+                  <label class="form-check-label" for="inlineRadio4">LOW</label>
+                </div>
+                <div class="form-floating">
+                  <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                  <label for="floatingTextarea">Detailed Statement</label>
+                </div>
+
+              </div>
+            </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button id="raitingChange" type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <script src="assets/js/app.js"></script>
     <script src="node_modules/chart.js/dist/chart.umd.js"></script>
     <script src="node_modules/jquery/dist/jquery.js"></script>
@@ -258,14 +341,27 @@ const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstra
 
   $(document).ready(function () {
 
+    $('.btnX').click(function(){
+        var rl = $(this).attr('id');
+        getByRisk(rl);
+    });
+
+    $('#raitingChange').click(function(){
+        var rl = $(this).attr('id');
+        getByRisk(rl);
+    });
+
 
     $(".sidebar ul li").on("click", function () {
+      
       $(".sidebar ul li.active").removeClass("active");
-      $(this).addClass("active");
+      $(this).addClass("active")
+     
     });
 
     $(".open-btn").on("click", function () {
       $(".sidebar").addClass("active");
+
     });
 
     $(".close-btn").on("click", function () {
@@ -275,13 +371,45 @@ const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstra
     $(".data-table").each(function (_, table) {
       $(table).DataTable();
     });
-    loadChart();
-    donutChart();
-    //bubbleChart();
-    //lineChart()
-    //readAimData()
-    loadTblData()
-  });
+    var rl = " ";
+    getByRisk(rl);
+    // getVendorCount(rl)
+    // getProductCount(rl)
+    // getVolumeCount(rl)
+
+
+
+    // function processVendorData(jsonData) {
+    //     // Parse JSON if it's a string, otherwise assume it's already an object
+    //     var data = typeof jsonData === 'string' ? $.parseJSON(jsonData) : jsonData;
+
+    //     var categoryTotals = {};
+
+    //     $.each(data, function(index, record) {
+    //         var category = record['PRODUCT_GATEGORY'];
+    //         var sales = parseFloat(record['ANNUAL_SALES']);
+
+    //         if (!categoryTotals[category]) {
+    //             categoryTotals[category] = 0;
+    //         }
+    //         categoryTotals[category] += sales;
+    //     });
+
+    //     // Logging the result to console
+    //     console.log(categoryTotals);
+    //     return categoryTotals;
+    // }
+
+    // // Assuming jsonData is your JSON data
+    // var jsonData = '[{"VENDOR_ID":1,"PRODUCT_GATEGORY":"Perfumes & Fragrances","ANNUAL_SALES":8635298.57}, {"VENDOR_ID":2,"PRODUCT_GATEGORY":"Perfumes & Fragrances","ANNUAL_SALES":8450388.16}]';
+
+    // // Call the function with your JSON data
+    // var result = processVendorData(jsonData);
+
+    // // Use 'result' as needed, for example, display it on your webpage
+    // // For demonstration, this will just log the output
+    // console.log(result);
+});
 
   function lineChart() {
         var ctx = $('#myLineChart').get(0).getContext('2d');
@@ -319,132 +447,209 @@ const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstra
         });
     }
 
-  function loadChart() {
+    function loadChart(top, high, moderate, low) {
     const charts = document.querySelectorAll(".chart");
+    charts.forEach(function (chart, index) {
+        // Attempt to retrieve an existing chart instance
+        var existingChart = Chart.getChart(chart); // New way to get existing chart instance by passing the canvas
+        if (existingChart) {
+            existingChart.destroy();
+        }
 
-    charts.forEach(function (chart) {
-      var ctx = chart.getContext("2d");
-      var myChart = new Chart(ctx, {
-        type: "bar",
-        data: {
-                labels: ['TOP', 'HIGH', 'MODERATE','LOW'],
+        var ctx = chart.getContext("2d");
+        var myChart = new Chart(ctx, {
+            type: "bar",
+            data: {
+                labels: ['TOP', 'HIGH', 'MODERATE', 'LOW'],
                 datasets: [{
                     label: 'My First Dataset',
-                    data: [300, 50, 100, 75],
+                    data: [top, high, moderate, low],
                     backgroundColor: [
                         'rgb(255, 99, 132)',
                         'rgb(255, 159, 64)',
-                        'rgb(54, 162, 235)',
                         'rgb(255, 205, 86)',
-                        
+                        'rgb(54, 162, 235)',
                     ],
                     hoverOffset: 4
-                }]
-            },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true,
-            },
-          },
-        },
-      });
-    });
-  }
-  function donutChart() {
-        var ctx = $('#myDonutChart').get(0).getContext('2d');
-        var myDonutChart = new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: ['TOP', 'HIGH', 'MODERATE','LOW'],
-                datasets: [{
-                    label: 'My First Dataset',
-                    data: [300, 50, 100, 75],
-                    backgroundColor: [
-                        'rgb(255, 99, 132)',
-                        'rgb(255, 159, 64)',
-                        'rgb(54, 162, 235)',
-                        'rgb(255, 205, 86)',
-                        
-                    ],
-                    hoverOffset: 4
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-            }
-        });
-    }
-    function bubbleChart() {
-        var ctx = $('#myBubbleChart').get(0).getContext('2d');
-        var myBubbleChart = new Chart(ctx, {
-            type: 'bubble',
-            data: {
-                datasets: [{
-                    label: 'My First Dataset',
-                    data: [{
-                        x: 20,
-                        y: 30,
-                        r: 15
-                    }, {
-                        x: 40,
-                        y: 10,
-                        r: 10
-                    }, {
-                        x: 25,
-                        y: 50,
-                        r: 5
-                    }, {
-                        x: 55,
-                        y: 60,
-                        r: 8
-                    }, {
-                        x: 80,
-                        y: 45,
-                        r: 22
-                    }],
-                    backgroundColor: 'rgb(255, 99, 132)'
                 }]
             },
             options: {
                 scales: {
-                    x: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'X Axis'
-                        }
-                    },
                     y: {
                         beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Y Axis'
-                        }
+                    },
+                },
+            },
+        });
+    });
+}
+
+function donutChart(top, high, moderate, low) {
+    var ctx = $('#myDonutChart').get(0).getContext('2d');
+    // Check and destroy the existing chart if it's there
+    var existingChart = Chart.getChart("myDonutChart"); // Use the ID or context of the canvas
+    if (existingChart) {
+        existingChart.destroy();
+    }
+
+    var myDonutChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['TOP', 'HIGH', 'MODERATE', 'LOW'],
+            datasets: [{
+                label: 'My First Dataset',
+                data: [top, high, moderate, low],
+                backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 205, 86)',
+                    'rgb(54, 162, 235)',
+                ],
+                hoverOffset: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+        }
+    });
+}
+function getVendorProductCount(rl){
+    $.ajax({
+        url: 'assets/PHP/functions.php',
+        dataType: 'json',
+        type: 'POST',
+        data: {
+            method: "getVendorProductCount",
+            riskLevel: rl
+        },
+        success: function(data){
+            console.log(data.items);
+            if(rl.lendth > 0){
+                var vendorCount = 0;
+                var productCount = 0;
+                for (var i = 0; i < data.items.length; i++) {
+                    vendorCount += parseFloat(data.items[i].DISTINCT_VENDOR_COUNT);
+                    productCount += parseFloat(data.items[i].DISTINCT_PRODUCT_COUNT);
+                }
+                $('#vendors').text(vendorCount);
+                $('#products').text(productCount);
+            }else{
+                $('#vendors').text(data.items[0].DISTINCT_VENDOR_COUNT);
+                $('#products').text(data.items[0].DISTINCT_PRODUCT_COUNT);
+            }
+        },
+        error: function(xhr, status, error) {
+            $('#result').html("Error: " + error);
+        }
+    });
+}
+
+    function getByRisk(rl){
+        $.ajax({
+            url: 'assets/PHP/functions.php',
+            dataType: 'json',
+            type: 'POST',
+            data: {
+                method: "getByRiskLevel", 
+                riskLevel: rl
+            },
+            success: function(data){
+                var tbl = data.items
+                console.log(tbl);
+                //getVolumeCount(rl);
+                //getVendorCount(rl);
+                //getProductCount(rl);
+                getVendorProductCount(rl)
+                //count total "high" risk
+                var high = 0;
+                var top = 0;
+                var moderate = 0;
+                var low = 0;
+                for (var i = 0; i < tbl.length; i++) {
+                    if(tbl[i].score_category == 'HIGH'){
+                        high++;
+                    }else if(tbl[i].score_category == 'TOP'){
+                        top++;
+                    }else if(tbl[i].score_category == 'MODERATE'){
+                        moderate++;
+                    }else if(tbl[i].score_category == 'LOW'){
+                        low++;
                     }
                 }
+                donutChart(top, high, moderate, low);
+                loadChart(top, high, moderate, low);
+
+                var volume = 0;
+                for (var i = 0; i < tbl.length; i++) {
+                    volume += parseFloat(tbl[i].ANNUAL_SALES);
+                }
+                var volCount = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(volume);
+                $('#volume').text(volCount);
+
+                if ($.fn.DataTable.isDataTable('#aimTblData')) {
+                    $('#aimTblData').DataTable().destroy();
+                }
+                $("#aimTblData").DataTable({
+                    "data": tbl,
+                    "columns": [
+                        { "data": "score_category" },
+                        { "data": "TOTAL_SCORE" }, // Make sure the property names match exactly
+                        { "data": "SELLER_FIRST_NAME" },
+                        { "data": "PRODUCT_NAME" },
+                        { "data": "STREET_NAME" },
+                        { "data": "CITY" },
+                        { "data": "STATE" },
+                        { "data": "ZIP_CODE" },
+                    ],
+                    "order": [[2, "asc"]]
+                });
+                //click on table row and open modal
+                $('#aimTblData tbody').on('click', 'tr', function () {
+                    var data = $('#aimTblData').DataTable().row( this ).data();
+                    
+                    if(data.score_category == 'TOP'){
+                        var color = 'rgb(255, 99, 132)';
+                    }else if(data.score_category == 'HIGH'){
+                        var color = 'rgb(255, 159, 64)';
+                    }else if(data.score_category == 'MODERATE'){
+                        var color = 'rgb(255, 205, 86)';
+                    }else if(data.score_category == 'LOW'){
+                        var color = 'rgb(54, 162, 235)';
+                    }
+                    let ProductPrice = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(data.PRODUCT_PRICE);
+                    let AnnualSales = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(data.ANNUAL_SALES);
+
+                    
+                    $('#VENDOR_NAME').text(data.VENDOR_NAME);
+                    $('#VendorName').text(data.VENDOR_NAME);
+                    $('#VENDOR_ID').text(data.VENDOR_ID);
+                    $('#PRODUCT_NAME').text(data.PRODUCT_NAME);
+                    $('#STREET_NAME').text(data.STREET_NAME);
+                    $('#CITY').text(data.CITY);
+                    $('#STATE').text(data.STATE);
+                    $('#ZIP_CODE').text(data.ZIP_CODE);
+                    $('#SELLER_FIRST_NAME').text(data.SELLER_FIRST_NAME);
+                    $('#SELLER_LAST_NAME').text(data.SELLER_LAST_NAME);
+                    $('#ANNUAL_SALES').text(AnnualSales);
+                    $('#PRODUCT_GATEGORY').text(data.PRODUCT_GATEGORY);
+                    $('#RATING_SCORE').text(data.RATING_SCORE)
+                    $('#TOTAL_SCORE').text(data.TOTAL_SCORE);
+                    $('#Product_Diversity_Score').text(data.Product_Diversity_Score);
+                    $('#SELLER_PHONE').text(data.SELLER_PHONE);
+                    $('#SELLER_EMAIL').text(data.SELLER_EMAIL);
+                    $('#PRODUCT_PRICE').text(ProductPrice);
+                    $('#score_category').html('<span class="p-1 rounded" style="background-color:'+color+'">'+data.score_category+'</span>');
+
+                    $('#reportIt').modal('show');
+                });
+            },
+            error: function(xhr, status, error) {
+               
+                $('#result').html("Error: " + error);
             }
         });
     }
 
-    function loadTblData() {
-      if ($.fn.DataTable.isDataTable('#aimTblData')) {
-          $('#aimTblData').DataTable().destroy();
-      }
-      $("#aimTblData").DataTable({
-        "ajax": "assets/json/items.json",
-        "columns": [
-            { "data": "RAITING_SCORE" }, // Make sure the property names match exactly
-            { "data": "SELLER_FIRST_NAME" },
-            { "data": "PRODUCT_NAME" },
-            { "data": "STREET_NAME" },
-            { "data": "CITY" },
-            { "data": "STATE" },
-            { "data": "ZIP_CODE" }
-        ],
-        "order": [[0, "desc"]]
-    });
-}
 
 </script>
