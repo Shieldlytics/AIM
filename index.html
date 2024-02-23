@@ -13,7 +13,7 @@
         <link rel="icon" type="image/png" sizes="96x96" href="assets/images/favicon.png"> -->
     <meta name="author" content="Ernest Pena Jr" />
     <meta name="HandheldFriendly" content="true" />
-    <title>A.I.M.</title>
+    <title>AIM</title>
     <link rel="stylesheet" href="assets/css/style.css" />
     <link rel="stylesheet" href="assets/fontawesome-pro-5.15.4/css/all.css" />
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css" />
@@ -41,8 +41,18 @@
 .bg-custom {
     background-color: #466a9a;
 }
-
-
+.Top{
+  background-color: #ff6384;
+}
+.High{
+  background-color: #ff9f40;
+}
+.Moderate{
+  background-color: #ffcd56;
+}
+.Low{
+  background-color: #36a2eb;
+}
 </style>
   <body>
     <div class="main-container d-flex">
@@ -64,6 +74,7 @@
             <a href="#" class="text-decoration-none px-3 py-2 d-block  fs-4" ><i class="fal fa-sliders-h"></i> Settings</a >
           </li>
 
+
           <li class="">
             <a href="#" class="text-decoration-none px-3 py-2 d-block  fs-4" ><i class="fal fa-users"></i> Accounts</a >
           </li>
@@ -80,9 +91,8 @@
               <a class="navbar-brand fs-4" href="#" ><span class="bg-dark rounded px-2 py-0 text-white"></span></a >
             </div>
             <form class="" role="search">
-
                 <div class="position-relative icon-inside-input">
-                    <input class="form-control" type="search" placeholder="Search" aria-label="Search" style="width:600px">
+                    <input id="externalSearchBox" class="form-control" type="search" placeholder="Search" aria-label="Search" style="width:600px">
                     <i class="far fa-search position-absolute"></i>
                 </div>
   
@@ -100,31 +110,25 @@
                 
               <ul class="navbar-nav mb-2 mb-lg-0">
                 <ul class="navbar-nav mb-2 mb-lg-0">
-                  <li class="nav-item mx-1">
-                    <button id="resetAll" class="btn btn-light">Clear Filters</button>
-                  </li>
-                  <li class="nav-item">
-                    <button id=" " class="btn btn-dark btnX">View All Data</button>
-                  </li>
-                  <li class="nav-item mx-1">
-                    <button id="Top" class="btn btn-danger btnX">Top</button>
-                  </li>
-                  <li class="nav-item">
-                    <button id="High" class="btn btn-custom btnX">High</button>
-                  </li>
-                  <li class="nav-item mx-1">
-                    <button id="Moderate" class="btn btn-warning btnX">Moderate</button>
-                  </li>
-                  <li class="nav-item">
-                    <button id="Low" class="btn btn-primary btnX">Low</button>
-                  </li>
-                
+                 
                 <li class="nav-item">
-                  <a class="nav-link" href="#"><i class="fas fa-bell-on"></i></a >
+                  <a class="nav-link " href="#"><i class="fas fa-bell-on fa-2x"></i></a >
                 </li>
-                <li class="nav-item mx-auto">
-                  <a class="mt-2 text-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><i class="fas fa-filter"></i></a>
+                <li class="nav-item">
+                  <a class="nav-link" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><i class="fas fa-filter fa-2x"></i></a>
                 </li>
+                <div class="d-flex align-items-center justify-content-center px-1">
+                  <div class="dropdown">
+                      <button class="btn btn-sm dropdown-toggle bg-layout  justify-content-center" type="button" id="ProfileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-user-circle fa-2x"></i> <span id="profileName" class="fs-5 align-content-center justify-content-center text-dark fw-bold" data-bs-theme="auto"></span> 
+                      </button>
+                      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown" id="profileDropdown" >
+                          <li><a class="dropdown-item" data-bs-value="profile" href="#"><i class="fas fa-user"></i> Profile</a></li>
+                          <li><a class="dropdown-item" data-bs-value="settings" href="#"><i class="fas fa-user-cog"></i> Settings</a></li>
+                          <li><a class="dropdown-item" data-bs-value="signout" href="#"><i class="fas fa-portal-exit"></i> Sign Out</a></li>
+                      </ul>
+                  </div>
+              </div>
               </ul>
             </div>
           </div>
@@ -138,10 +142,10 @@
                       <h4 class="card-title text-uppercase">Key Performance Indicator</h4>
                         <div class="row">
                             <div class="col-md-12 mb-3">
-                                <div class="card h-100 shadow-sm">
+                                <div class="card h-100 shadow-sm bg-primary text-white">
                                   <div class="card-body justify-content-center align-items-center">
                                       <div class="d-flex justify-content-center align-items-center">
-                                          <span class="text-uppercase fw-lighter">volume</span>
+                                          <span class="text-uppercase fw-lighter"><i class="far fa-usd-circle"></i> volume</span>
                                       </div>
                                       <div class="d-flex justify-content-center align-items-center">
                                           <span id="volume" class="fs-2 ms-2">0</span>
@@ -150,12 +154,12 @@
                                 </div>
                             </div>
                             </div>
-<div class="row">
+                    <div class="row">
                             <div class="col-md-6 mb-3">
-                                <div class="card h-100 shadow-sm">
+                                <div class="card h-100 shadow-sm bg-secondary text-white">
                                     <div class="card-body justify-content-center align-items-center">
                                         <div class="d-flex justify-content-center align-items-center">
-                                            <span class="text-uppercase fw-lighter">vendors</span>
+                                            <span class="text-uppercase fw-lighter"><i class="fas fa-store-alt"></i> vendors</span>
                                         </div>
                                         <div class="d-flex justify-content-center align-items-center">
                                             <span id="vendors" class="fs-2 ms-2">0</span>
@@ -165,10 +169,10 @@
                             </div>
                               
                             <div class="col-md-6 mb-3">
-                                <div class="card h-100 shadow-sm">
+                                <div class="card h-100 shadow-sm bg-dark text-white">
                                     <div class="card-body justify-content-center align-items-center">
                                         <div class="d-flex justify-content-center align-items-center">
-                                            <span class="text-uppercase fw-lighter">products</span>
+                                            <span class="text-uppercase fw-lighter"><i class="far fa-inventory"></i> products</span>
                                         </div>
                                         <div class="d-flex justify-content-center align-items-center">
                                             <span id="products" class="fs-2 ms-2">0</span>
@@ -182,26 +186,29 @@
             </div>
             <div class="col-md-4">
               <div class="card h-100">
-                  <div class="card-header">
-                    <span class="me-2"><i class="bi bi-bar-chart-fill"></i></span> Area Chart Example
-                  </div>
                   <div class="card-body">
-                      <canvas class="chart" width="400" height="200"></canvas>
+                      <!-- <canvas class="chart"></canvas> -->
+                      <canvas id="geoChart  width="400" height="200""></canvas>
                    </div>
               </div>
           </div>
 
             <div class="col-md-4">
                 <div class="card h-100">
-                  <div class="card-header">
-                    <span class="me-2"><i class="bi bi-bar-chart-fill"></i></span> Area Chart Example
-                  </div>
                     <div class="card-body">
                         <canvas id="myDonutChart"></canvas>
                     </div>
                 </div>
             </div>
         </div>    
+        <div class="row mt-3">
+          <div class="col-md-2"><button id="resetAll" class="btn btn-light w-100">Reset "All" Charts</button></div>
+          <div class="col-md-2"><button id=" " class="btn btn-dark btnX w-100">Load "All" Data</button></div>
+          <div class="col-md-2"><button id="Top" class="btn btn-danger btnX w-100">Filter "<span class="fw-bold">Top</span>" Data</button></div>
+          <div class="col-md-2"> <button id="High" class="btn btn-custom btnX w-100">Filter "<span class="fw-bold">High</span>" Data</button></div>
+          <div class="col-md-2"><button id="Moderate" class="btn btn-warning btnX w-100">Filter "<span class="fw-bold">Moderate</span>" Data</button></div>
+          <div class="col-md-2"><button id="Low" class="btn btn-primary btnX w-100">Filter "<span class="fw-bold">Low</span>" Data</button></div>
+        </div>
 
         <div class="row mt-3">
             <!-- <div class="col-md-4 mb-3">
@@ -214,20 +221,18 @@
             </div> -->
           <div class="col-md-12">
             <div class="card">
-              <div class="card-header">
-                <span><i class="bi bi-table me-2"></i></span> Data Table
-              </div>
               <div class="card-body">
                 <div class="table-responsive">
                   <table
                     id="aimTblData"
-                    class="table table-sm table-striped data-table"
+                    class="table table-sm table-striped data-table table-hover"
                     style="width: 100%" >
                     <thead>
                       <tr>
                         <th>RATING</th>
                         <th>SCORE</th>
                         <th>VENDOR NAME</th>
+                        <th>SELLER NAME</th>
                         <th>PRODUCT NAME</th>
                         <th>STREET</th>
                         <th>CITY</th>
@@ -246,43 +251,23 @@
         </div>
       </div>
     </div>
-
-
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title text-uppercase" id="offcanvasRightLabel">Filters</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      </div>
-
-      <div class="card m-4">
-        <div class="card-body">
-          <div class="card-title">Click to apply filter</div>
-          <div class="offcanvas-body">
-            <div class="form-check form-switch">
-              <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-              <label class="form-check-label" for="flexSwitchCheckDefault">Article Findings</label>
-            </div>
-            <div class="form-check form-switch">
-              <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-              <label class="form-check-label" for="flexSwitchCheckChecked">Seller Name Change</label>
-            </div>
-            <div class="form-check form-switch">
-              <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDisabled" >
-              <label class="form-check-label" for="flexSwitchCheckDisabled">Price Difference</label>
-            </div>
+    <div  id="loader" class="modal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered"style="width:150px">
+        <div class="modal-content bg-info">
+          <div class="modal-body text-center">
+            <i class="fas fa-cog fa-spin fa-4x"></i>
+            <p class="mt-3">Loading...</p>
+            <span class="mt-0" style="font-size:10px;">powered by shieldlytics</span>
           </div>
         </div>
       </div>
-     
     </div>
-
-
-    <div id="reportIt" class="modal fade" tabindex="-1">
+    <div id="vendorReport" class="modal fade" tabindex="-1"  aria-hidden="true">
       <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Detailed Report "<span id="VendorName"></span>"</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button id="xMarksTheSpot" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
             <p><span id="VENDOR_NAME"></span>, identified by Vendor ID <span id="VENDOR_ID" class="fw-bold"></span>, specializes in "<span id="PRODUCT_NAME" class="fw-bold"></span>", operating out of <span id="STREET_NAME" class="fw-bold"></span>, <span id="CITY" class="fw-bold"></span>, <span id="STATE" class="fw-bold"></span>, with the ZIP code <span id="ZIP_CODE" class="fw-bold"></span>.</p>
@@ -316,17 +301,77 @@
                   <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
                   <label for="floatingTextarea">Detailed Statement</label>
                 </div>
-
+    
               </div>
             </div>
-
+    
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button id="modalClose" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <button id="raitingChange" type="button" class="btn btn-primary">Save changes</button>
           </div>
         </div>
       </div>
     </div>
+
+    
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+      <div class="offcanvas-header">
+        <h4 class="offcanvas-title text-uppercase " id="offcanvasRightLabel">Attributes & Filters</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+
+      <div class="card m-4">
+        <div class="card-body">
+          <div class="card-title h3">Click to apply Attributes</div>
+          <div class="offcanvas-body">
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+              <label class="form-check-label" for="flexSwitchCheckDefault">Article Findings</label>
+            </div>
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+              <label class="form-check-label" for="flexSwitchCheckChecked">Seller Name Change</label>
+            </div>
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDisabled" >
+              <label class="form-check-label" for="flexSwitchCheckDisabled">Price Difference</label>
+            </div>
+            </div>
+            </div>
+            </div>
+           <!--  <div class="card m-4">
+              <div class="card-body">
+                <div class="card-title h3">Click to apply Filter</div>
+                <div class="offcanvas-body">
+<ul class="list-unstyled">
+          <li class="">
+            <a id="" href="#" class="text-decoration-none px-3 py-2 d-block  fs-4 btnX" ><i class="fas fa-sync"></i> Clear Data</a >
+          </li>
+
+          <li class="">
+            <a href="#" id="Top" class="text-decoration-none px-3 py-2 d-block  fs-4 btnX" ><i class="fas fa-light-switch-off"></i> Top </a >
+          </li>
+
+          <li class="">
+            <a href="#" id="High" class="text-decoration-none px-3 py-2 d-block  fs-4 btnX" ><i class="fas fa-light-switch-off"></i> High</a >
+          </li>
+
+          <li class="">
+            <a href="#" id="Moderate" class="text-decoration-none px-3 py-2 d-block  fs-4 btnX" ><i class="fas fa-light-switch-off"></i> Moderate</a >
+          </li>
+
+          <li class="">
+            <a href="#" id="Low" class="text-decoration-none px-3 py-2 d-block  fs-4 btnX" ><i class="fas fa-light-switch-off"></i> Low</a >
+          </li>
+        </ul> 
+          </div>
+        </div>
+      </div> 
+     
+    </div>-->
+
+  
     <script src="assets/js/app.js"></script>
     <script src="node_modules/chart.js/dist/chart.umd.js"></script>
     <script src="node_modules/jquery/dist/jquery.js"></script>
@@ -334,15 +379,48 @@
     <script src="node_modules/datatables.net/js/jquery.dataTables.js"></script>
     <script src="node_modules/datatables.net-bs5/js/dataTables.bootstrap5.js"></script>
   </body>
+
+
+
+  
 </html>
+
+  
+
+
 <script>
 const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
 const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 
   $(document).ready(function () {
-
+$('#resetAll').on('click', function(){
+    getByRisk(rl=' ');
+    $('.btnX').css('background-color', '');
+    $('#loader').hide();
+    $('#externalSearchBox').val('');
+    $('#externalSearchBox').keyup();
+    $('#raitingChange').attr('id', '');
+    $('#raitingChange').text('Rating Change');
+    $('#raitingChange').removeClass('btn-danger btn-custom btn-warning btn-primary');
+    $('#raitingChange').addClass('btn-primary');
+});
+$('#modalClose, #xMarksTheSpot').on('click', function(){
+    $('#loader').hide();
+});
+    
+    
     $('.btnX').click(function(){
+      $('.btnX').css('background-color', '');
         var rl = $(this).attr('id');
+        if(rl == "TOP"){
+          $(this).css('background-color', 'rgb(255, 99, 132)').addClass('rounded').find('i').toggleClass('fa-light-switch-off fa-light-switch-on');
+        }else if(rl == "HIGH"){
+          $(this).css('background-color', 'rgb(255, 159, 64)').addClass('rounded').find('i').toggleClass('fa-light-switch-off fa-light-switch-on');
+        }else if(rl == "MODERATE"){
+          $(this).css('background-color', 'rgb(255, 205, 86)').addClass('rounded').find('i').toggleClass('fa-light-switch-off fa-light-switch-on');
+        }else if(rl == "LOW"){
+          $(this).css('background-color', 'rgb(54, 162, 235)').addClass('rounded').find('i').toggleClass('fa-light-switch-off fa-light-switch-on');
+        }
         getByRisk(rl);
     });
 
@@ -373,42 +451,7 @@ const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstra
     });
     var rl = " ";
     getByRisk(rl);
-    // getVendorCount(rl)
-    // getProductCount(rl)
-    // getVolumeCount(rl)
-
-
-
-    // function processVendorData(jsonData) {
-    //     // Parse JSON if it's a string, otherwise assume it's already an object
-    //     var data = typeof jsonData === 'string' ? $.parseJSON(jsonData) : jsonData;
-
-    //     var categoryTotals = {};
-
-    //     $.each(data, function(index, record) {
-    //         var category = record['PRODUCT_GATEGORY'];
-    //         var sales = parseFloat(record['ANNUAL_SALES']);
-
-    //         if (!categoryTotals[category]) {
-    //             categoryTotals[category] = 0;
-    //         }
-    //         categoryTotals[category] += sales;
-    //     });
-
-    //     // Logging the result to console
-    //     console.log(categoryTotals);
-    //     return categoryTotals;
-    // }
-
-    // // Assuming jsonData is your JSON data
-    // var jsonData = '[{"VENDOR_ID":1,"PRODUCT_GATEGORY":"Perfumes & Fragrances","ANNUAL_SALES":8635298.57}, {"VENDOR_ID":2,"PRODUCT_GATEGORY":"Perfumes & Fragrances","ANNUAL_SALES":8450388.16}]';
-
-    // // Call the function with your JSON data
-    // var result = processVendorData(jsonData);
-
-    // // Use 'result' as needed, for example, display it on your webpage
-    // // For demonstration, this will just log the output
-    // console.log(result);
+    loadStateSales()
 });
 
   function lineChart() {
@@ -493,24 +536,113 @@ function donutChart(top, high, moderate, low) {
     }
 
     var myDonutChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: ['TOP', 'HIGH', 'MODERATE', 'LOW'],
-            datasets: [{
-                label: 'My First Dataset',
-                data: [top, high, moderate, low],
-                backgroundColor: [
-                    'rgb(255, 99, 132)',
-                    'rgb(255, 159, 64)',
-                    'rgb(255, 205, 86)',
-                    'rgb(54, 162, 235)',
-                ],
-                hoverOffset: 4
-            }]
+    type: 'doughnut',
+    data: {
+        labels: ['TOP', 'HIGH', 'MODERATE', 'LOW'],
+        datasets: [{
+            label: 'My First Dataset',
+            data: [top, high, moderate, low], // Assume these are your data variables
+            backgroundColor: [
+                'rgb(255, 99, 132)',
+                'rgb(255, 159, 64)',
+                'rgb(255, 205, 86)',
+                'rgb(54, 162, 235)',
+            ],
+            hoverOffset: 4
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+            onClick: function(evt, element, chart) {
+                if (element.length > 0) {
+                    var firstPoint = element[0];
+                    var label = this.data.labels[firstPoint.index];
+                    var value = this.data.datasets[firstPoint.datasetIndex].data[firstPoint.index];
+
+                    switch (label) {
+                        case 'TOP':
+                            getByRisk(rl='TOP')
+                            break;
+                        case 'HIGH':
+                            getByRisk(rl='HIGH')
+                            break;
+                        case 'MODERATE':
+                            getByRisk(rl='MODERATE')
+                            break;
+                        case 'LOW':
+                            getByRisk(rl='LOW')
+                            break;
+                    }
+                }
+                //create a reset button to reset the chart
+                var resetButton = document.createElement('button');
+                resetButton.innerHTML = 'Reset';
+                resetButton.onclick = function() {
+                    getByRisk(rl=' ');
+                };
         },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
+        tooltips: {
+            callbacks: {
+                label: function(tooltipItem, data) {
+                    var dataset = data.datasets[tooltipItem.datasetIndex];
+                    var total = dataset.data.reduce(function(previousValue, currentValue) {
+                        return previousValue + currentValue;
+                    });
+                    var currentValue = dataset.data[tooltipItem.index];
+                    var percentage = Math.floor(((currentValue/total) * 100)+0.5); // Round to nearest whole number
+                    return data.labels[tooltipItem.index] + ": " + percentage + "%";
+                }
+            }
+        },
+        
+        plugins: {
+            // For Chart.js 3.x, tooltip configuration has moved under plugins
+            tooltip: {
+                callbacks: {
+                    label: function(context) {
+                        var label = context.label || '';
+                        var data = context.dataset.data;
+                        var dataSum = data.reduce((sum, val) => sum + val, 0);
+                        var percentage = (data[context.dataIndex] / dataSum * 100).toFixed(2);
+                        return label + ': ' + percentage + '%';
+                    }
+                }
+            }
+        }
+    }
+});
+
+}
+function getVendorProductCountByName(vendor){
+  $.ajax({
+        url: 'assets/PHP/functions.php',
+        dataType: 'json',
+        type: 'POST',
+        data: {
+            method: "getVendorProductCountByName",
+            vendorName: vendor
+        },
+        success: function(data){
+            //console.log(data.items);
+            var vendorCount = 0;
+                var productCount = 0;
+            if(rl.lendth > 0){
+                
+                for (var i = 0; i < data.items.length; i++) {
+                    vendorCount += parseFloat(data.items[i].DISTINCT_VENDOR_COUNT);
+                    productCount += parseFloat(data.items[i].DISTINCT_PRODUCT_COUNT);
+                }
+                $('#vendors').text(vendorCount);
+                $('#products').text(productCount);
+
+            }else{
+                $('#vendors').text(data.items[0].DISTINCT_VENDOR_COUNT);
+                $('#products').text(data.items[0].DISTINCT_PRODUCT_COUNT);
+            }
+        },
+        error: function(xhr, status, error) {
+            $('#result').html("Error: " + error);
         }
     });
 }
@@ -524,7 +656,7 @@ function getVendorProductCount(rl){
             riskLevel: rl
         },
         success: function(data){
-            console.log(data.items);
+            //console.log(data.items);
             if(rl.lendth > 0){
                 var vendorCount = 0;
                 var productCount = 0;
@@ -544,6 +676,128 @@ function getVendorProductCount(rl){
         }
     });
 }
+function getByVendor(vendor){
+    $.ajax({
+        url: 'assets/PHP/functions.php',
+        dataType: 'json',
+        type: 'POST',
+        data: {
+            method: "getByVendor", 
+            vendorName: vendor
+        },
+        beforeSend: function() {
+            $('#loader').show();
+        },
+        success: function(data){
+            var tbl = data.items
+            getVendorProductCountByName(vendor)
+            var high = 0;
+            var top = 0;
+            var moderate = 0;
+            var low = 0;
+            for (var i = 0; i < tbl.length; i++) {
+                if(tbl[i].score_category == 'HIGH'){
+                    high++;
+                }else if(tbl[i].score_category == 'TOP'){
+                    top++;
+                }else if(tbl[i].score_category == 'MODERATE'){
+                    moderate++;
+                }else if(tbl[i].score_category == 'LOW'){
+                    low++;
+                }
+            }
+            donutChart(top, high, moderate, low);
+            loadChart(top, high, moderate, low);
+
+            var volume = 0;
+            for (var i = 0; i < tbl.length; i++) {
+                volume += parseFloat(tbl[i].ANNUAL_SALES);
+            }
+            var volCount = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(volume);
+            $('#volume').text(volCount);
+
+            if ($.fn.DataTable.isDataTable('#aimTblData')) {
+                $('#aimTblData').DataTable().destroy();
+            }
+            var table = $("#aimTblData").DataTable({
+                "data": tbl,
+                "columns": [
+                    { "data": "score_category" },
+                    { "data": "TOTAL_SCORE" }, // Make sure the property names match exactly
+                    { "data": "VENDOR_NAME" },
+                    { "data": "SELLER_FIRST_NAME" },
+                    { "data": "PRODUCT_NAME" },
+                    { "data": "STREET_NAME" },
+                    { "data": "CITY" },
+                    { "data": "STATE" },
+                    { "data": "ZIP_CODE" },
+                ],
+                "order": [[1, "desc"]],
+                "createdRow": function(row, data, dataIndex) {
+                  // Assuming TOTAL_SCORE is the second column, index
+                  var score = parseFloat(data.TOTAL_SCORE); // Make sure TOTAL_SCORE is a number
+
+                  // Change background color based on score value
+                  if (score >= 60) {
+                      $('td:eq(0)', row).css('background-color','#ff6384').addClass('rounded'); // Green for scores 80 and above
+                  } else if (score <= 59 && score >= 50) {
+                      $('td:eq(0)', row).css('background-color','#ff9f40').addClass('rounded'); // Orange for scores between 60 and 79
+                  } else if (score <= 49 && score >= 40) {
+                      $('td:eq(0)', row).css('background-color','#ffcd5').addClass('rounded'); // Yellow for scores between 40 and 59
+                  } else if (score <= 39){
+                      $('td:eq(0)', row).css('background-color','#36a2eb').addClass('rounded');
+                  }
+              }
+            });
+
+            $('#aimTblData tbody').on('click', 'td', function () {
+                var data = $('#aimTblData').DataTable().row( this ).data();
+                
+                if(data.score_category == 'TOP'){
+                    var color = '#ff6384';
+                }else if(data.score_category == 'HIGH'){
+                    var color = '#ff9f40';
+                }else if(data.score_category == 'MODERATE'){
+                    var color = '#ffcd56';
+                }else if(data.score_category == 'LOW'){
+                    var color = '#36a2eb';
+                }
+                let ProductPrice = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(data.PRODUCT_PRICE);
+                let AnnualSales = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(data.ANNUAL_SALES);
+
+                
+                $('#VENDOR_NAME').text(data.VENDOR_NAME);
+                $('#VendorName').text(data.VENDOR_NAME);
+                $('#VENDOR_ID').text(data.VENDOR_ID);
+                $('#PRODUCT_NAME').text(data.PRODUCT_NAME);
+                $('#STREET_NAME').text(data.STREET_NAME);
+                $('#CITY').text(data.CITY);
+                $('#STATE').text(data.STATE);
+                $('#ZIP_CODE').text(data.ZIP_CODE);
+                $('#SELLER_FIRST_NAME').text(data.SELLER_FIRST_NAME);
+                $('#SELLER_LAST_NAME').text(data.SELLER_LAST_NAME);
+                $('#ANNUAL_SALES').text(AnnualSales);
+                $('#PRODUCT_GATEGORY').text(data.PRODUCT_GATEGORY);
+                $('#RATING_SCORE').text(data.RATING_SCORE)
+                $('#TOTAL_SCORE').text(data.TOTAL_SCORE);
+                $('#Product_Diversity_Score').text(data.Product_Diversity_Score);
+                $('#SELLER_PHONE').text(data.SELLER_PHONE);
+                $('#SELLER_EMAIL').text(data.SELLER_EMAIL);
+                $('#PRODUCT_PRICE').text(ProductPrice);
+                $('#score_category').html('<span class="p-1 rounded" style="background-color:'+color+'">'+data.score_category+'</span>');
+                //getByVendor(vendorName=data.VENDOR_NAME);
+
+                $('#reportIt').modal('show');
+            });
+        },
+        complete: function() {
+            $('#loader').hide();
+        },
+        error: function(xhr, status, error) {
+            $('#result').html("Error: " + error);
+        }
+    });
+  }
 
     function getByRisk(rl){
         $.ajax({
@@ -554,14 +808,13 @@ function getVendorProductCount(rl){
                 method: "getByRiskLevel", 
                 riskLevel: rl
             },
+            beforeSend: function() {
+                $('#loader').show();
+            },
             success: function(data){
                 var tbl = data.items
-                console.log(tbl);
-                //getVolumeCount(rl);
-                //getVendorCount(rl);
-                //getProductCount(rl);
+                //console.log(tbl);
                 getVendorProductCount(rl)
-                //count total "high" risk
                 var high = 0;
                 var top = 0;
                 var moderate = 0;
@@ -595,6 +848,7 @@ function getVendorProductCount(rl){
                     "columns": [
                         { "data": "score_category" },
                         { "data": "TOTAL_SCORE" }, // Make sure the property names match exactly
+                        { "data": "VENDOR_NAME" },
                         { "data": "SELLER_FIRST_NAME" },
                         { "data": "PRODUCT_NAME" },
                         { "data": "STREET_NAME" },
@@ -602,25 +856,35 @@ function getVendorProductCount(rl){
                         { "data": "STATE" },
                         { "data": "ZIP_CODE" },
                     ],
-                    "order": [[2, "asc"]]
+                    "order": [[1, "desc"]],
+                    "createdRow": function(row, data, dataIndex) {
+                      var score = parseFloat(data.TOTAL_SCORE);
+                      if (score >= 60) {
+                          $('td:eq(0)', row).css('background-color','#ff6384').addClass('rounded'); // Green for scores 80 and above
+                      } else if (score <= 59 && score >= 50) {
+                          $('td:eq(0)', row).css('background-color','#ff9f40').addClass('rounded'); // Orange for scores between 60 and 79
+                      } else if (score <= 49 && score >= 40) {
+                          $('td:eq(0)', row).css('background-color','#ffcd5').addClass('rounded'); // Yellow for scores between 40 and 59
+                      } else if (score <= 39){
+                          $('td:eq(0)', row).css('background-color','#36a2eb').addClass('rounded');
+                      }
+                  }
                 });
-                //click on table row and open modal
+
                 $('#aimTblData tbody').on('click', 'tr', function () {
                     var data = $('#aimTblData').DataTable().row( this ).data();
-                    
                     if(data.score_category == 'TOP'){
-                        var color = 'rgb(255, 99, 132)';
+                        var color = '#ff6384';
                     }else if(data.score_category == 'HIGH'){
-                        var color = 'rgb(255, 159, 64)';
+                        var color = '#ff9f40';
                     }else if(data.score_category == 'MODERATE'){
-                        var color = 'rgb(255, 205, 86)';
+                        var color = '#ffcd56';
                     }else if(data.score_category == 'LOW'){
-                        var color = 'rgb(54, 162, 235)';
+                        var color = '#36a2eb';
                     }
                     let ProductPrice = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(data.PRODUCT_PRICE);
                     let AnnualSales = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(data.ANNUAL_SALES);
 
-                    
                     $('#VENDOR_NAME').text(data.VENDOR_NAME);
                     $('#VendorName').text(data.VENDOR_NAME);
                     $('#VENDOR_ID').text(data.VENDOR_ID);
@@ -640,9 +904,13 @@ function getVendorProductCount(rl){
                     $('#SELLER_EMAIL').text(data.SELLER_EMAIL);
                     $('#PRODUCT_PRICE').text(ProductPrice);
                     $('#score_category').html('<span class="p-1 rounded" style="background-color:'+color+'">'+data.score_category+'</span>');
-
-                    $('#reportIt').modal('show');
+                    getByVendor(vendorName=data.VENDOR_NAME, rl);
+                    $('#vendorReport').modal('show');
+                    
                 });
+            },
+            complete: function() {
+                $('#loader').hide();
             },
             error: function(xhr, status, error) {
                
@@ -650,6 +918,106 @@ function getVendorProductCount(rl){
             }
         });
     }
+
+function loadStateSales(){
+  $.ajax({
+            url: 'assets/PHP/functions.php',
+            dataType: 'json',
+            type: 'POST',
+            data: {
+                method: "loadStateSales"
+            },
+            success: function(data){
+                var tbl = data.items
+                var stateSales = [];
+                //console.log(tbl);
+                for (var i = 0; i < tbl.length; i++) {
+                    stateSales.push({
+                        STATE: tbl[i].STATE,
+                        total_sales: parseFloat(tbl[i].total_sales)
+                    });
+                }
+
+                $('#geoChart').each(function(index, chart) {
+                  // Check and destroy the existing chart if it's there
+                  var existingChart = Chart.getChart(chart); // Correctly getting existing chart instance
+                  if (existingChart) {
+                      existingChart.destroy();
+                  }
+
+                  var ctx = chart.getContext("2d");
+                  var geoChart = new Chart(ctx, {
+                      type: "choropleth",
+                      data: {
+                          labels: stateSales.map(d => d.STATE), // Array of state names
+                          datasets: [{
+                              label: 'Annual Sales by State',
+                              data: stateSales.map(d => ({
+                                  feature: geojsonData.features.find(f => f.properties.name === d.STATE),
+                                  value: d.total_sales
+                              })),
+                              backgroundColor: (context) => {
+                                  const value = context.dataset.data[context.dataIndex].value;
+                                  // Return a color based on the value
+                                  return value > 1000000 ? 'rgba(255, 99, 132, 0.5)' : 'rgba(255, 159, 64, 0.5)';
+                              }
+                          }]
+                      },
+                      options: {
+                          scales: {
+                              xy: {
+                                  projection: 'equalEarth'
+                              }
+                          }
+                      }
+                  });
+              });
+
+            },
+            error: function(xhr, status, error) {
+                $('#result').html("Error: " + error);
+            }
+    });
+
+}
+function drawGeoChart(stateSales) {
+  console.log(stateSales)
+    // Assuming `geojsonData` is defined elsewhere and accessible here
+    $('#geoChart').each(function(index, chart) {
+        // Check and destroy the existing chart if it's there
+        var existingChart = Chart.getChart(chart); // Correctly getting existing chart instance
+        if (existingChart) {
+            existingChart.destroy();
+        }
+
+        var ctx = chart.getContext("2d");
+        var geoChart = new Chart(ctx, {
+            type: "choropleth",
+            data: {
+                labels: stateSales.map(d => d.STATE), // Array of state names
+                datasets: [{
+                    label: 'Annual Sales by State',
+                    data: stateSales.map(d => ({
+                        feature: geojsonData.features.find(f => f.properties.name === d.STATE),
+                        value: d.total_sales
+                    })),
+                    backgroundColor: (context) => {
+                        const value = context.dataset.data[context.dataIndex].value;
+                        // Return a color based on the value
+                        return value > 1000000 ? 'rgba(255, 99, 132, 0.5)' : 'rgba(255, 159, 64, 0.5)';
+                    }
+                }]
+            },
+            options: {
+                scales: {
+                    xy: {
+                        projection: 'equalEarth'
+                    }
+                }
+            }
+        });
+    });
+}
 
 
 </script>
