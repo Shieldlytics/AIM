@@ -1,32 +1,62 @@
 <?php 
 
-function getConnection() {
-    $host = "pena-cloud.network";
-    $port = 19307;
-    $databaseName = "AIM";
-    $username = "ErnestPenaJr";
-    $password = "$268RedDragons";
-    $dsn = "mysql:host=$host;port=$port;dbname=$databaseName;charset=utf8mb4";
-    try {
-        $conn = new PDO($dsn, $username, $password);
-        // Set the PDO error mode to exception
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      
-    } catch(PDOException $e) {
-        echo "Connection failed: " . $e->getMessage();
-    }
-    return $conn;    
+// function getConnection() {
+//     // $host = "10.214.19.39";
+//     // $port = 19307;
+//     // $databaseName = "AIM";
+//     // $username = "ErnestPenaJr";
+//     // $password = "$268RedDragons";
+//     // $dsn = "mysql:host=$host;port=$port;dbname=$databaseName;charset=utf8mb4";
 
-}
 
-// function getConnection(){
-//     $DB_DNS = "mysql:host=localhost;dbname=AIM;charset=utf8mb4";
+//     $DB_DNS = "mysql:host=localhost;dbname=AIM;";
 //     $DB_USER = "ErnestPenaJr";
 //     $DB_PASSWORD = "$268RedDragons";
 //     $conn = new PDO($DB_DNS, $DB_USER, $DB_PASSWORD);
 //     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 //     return $conn;
+//     try {
+//         $conn = new PDO($dsn, $username, $password);
+//         // Set the PDO error mode to exception
+//         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      
+//     } catch(PDOException $e) {
+//         echo "Connection failed: " . $e->getMessage();
+//     }
+//     return $conn;    
+
 // }
+
+// function getConnection() {
+//     $DB_DSN = "mysql:host=localhost;dbname=AIM";
+//     $DB_USER = "ErnestPenaJr";
+//     $DB_PASSWORD = "$268RedDragons";
+//     try {
+//         $conn = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+//         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+//         return $conn;
+//     } catch (PDOException $e) {
+//         // Handle error or log it
+//         throw $e; // Or handle it more gracefully
+//     }
+// }
+// function getConnection() {
+//     $DB_DNS = "jdbc:sqlserver://;serverName=guardian-dev-db.database.windows.net;databaseName=GUARDIAN-DEV;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
+//     $DB_USER = "GUARDIAN";
+//     $DB_PASSWORD = "Sh13ldlyt1c$";
+//     $conn = new PDO($DB_DNS, $DB_USER, $DB_PASSWORD);
+//     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+//     return $conn;
+// }
+
+function getConnection(){
+    $DB_DNS = "mysql:host=10.214.19.39:3307;dbname=AIM;charset=utf8mb4";
+    $DB_USER = "ErnestPenaJr";
+    $DB_PASSWORD = "$268RedDragons";
+    $conn = new PDO($DB_DNS, $DB_USER, $DB_PASSWORD);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    return $conn;
+}
 
 if(isset($_POST["method"])) {
     $method = $_POST["method"];

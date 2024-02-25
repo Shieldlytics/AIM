@@ -251,7 +251,38 @@
         </div>
       </div>
     </div>
-    <div  id="loader" class="modal" tabindex="-1">
+
+    <div class="offcanvas offcanvas-end" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+      <div class="offcanvas-header">
+        <h4 class="offcanvas-title text-uppercase " id="offcanvasRightLabel">Attributes & Filters</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+    
+      <div class="card m-4">
+        <div class="card-body">
+          <div class="card-title h3">Click to apply Attributes</div>
+          <div class="offcanvas-body">
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+              <label class="form-check-label" for="flexSwitchCheckDefault">Article Findings</label>
+            </div>
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+              <label class="form-check-label" for="flexSwitchCheckChecked">Seller Name Change</label>
+            </div>
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDisabled">
+              <label class="form-check-label" for="flexSwitchCheckDisabled">Price Difference</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <div  id="loader" class="modal" >
       <div class="modal-dialog modal-dialog-centered"style="width:150px">
         <div class="modal-content bg-info">
           <div class="modal-body text-center">
@@ -262,7 +293,7 @@
         </div>
       </div>
     </div>
-    <div id="vendorReport" class="modal fade" tabindex="-1"  aria-hidden="true">
+    <div id="vendorReport" class="modal fade">
       <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
@@ -315,61 +346,8 @@
 
     
 
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-      <div class="offcanvas-header">
-        <h4 class="offcanvas-title text-uppercase " id="offcanvasRightLabel">Attributes & Filters</h4>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      </div>
 
-      <div class="card m-4">
-        <div class="card-body">
-          <div class="card-title h3">Click to apply Attributes</div>
-          <div class="offcanvas-body">
-            <div class="form-check form-switch">
-              <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-              <label class="form-check-label" for="flexSwitchCheckDefault">Article Findings</label>
-            </div>
-            <div class="form-check form-switch">
-              <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-              <label class="form-check-label" for="flexSwitchCheckChecked">Seller Name Change</label>
-            </div>
-            <div class="form-check form-switch">
-              <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDisabled" >
-              <label class="form-check-label" for="flexSwitchCheckDisabled">Price Difference</label>
-            </div>
-            </div>
-            </div>
-            </div>
-           <!--  <div class="card m-4">
-              <div class="card-body">
-                <div class="card-title h3">Click to apply Filter</div>
-                <div class="offcanvas-body">
-<ul class="list-unstyled">
-          <li class="">
-            <a id="" href="#" class="text-decoration-none px-3 py-2 d-block  fs-4 btnX" ><i class="fas fa-sync"></i> Clear Data</a >
-          </li>
 
-          <li class="">
-            <a href="#" id="Top" class="text-decoration-none px-3 py-2 d-block  fs-4 btnX" ><i class="fas fa-light-switch-off"></i> Top </a >
-          </li>
-
-          <li class="">
-            <a href="#" id="High" class="text-decoration-none px-3 py-2 d-block  fs-4 btnX" ><i class="fas fa-light-switch-off"></i> High</a >
-          </li>
-
-          <li class="">
-            <a href="#" id="Moderate" class="text-decoration-none px-3 py-2 d-block  fs-4 btnX" ><i class="fas fa-light-switch-off"></i> Moderate</a >
-          </li>
-
-          <li class="">
-            <a href="#" id="Low" class="text-decoration-none px-3 py-2 d-block  fs-4 btnX" ><i class="fas fa-light-switch-off"></i> Low</a >
-          </li>
-        </ul> 
-          </div>
-        </div>
-      </div> 
-     
-    </div>-->
 
   
     <script src="assets/js/app.js"></script>
