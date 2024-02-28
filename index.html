@@ -92,7 +92,7 @@
             </div>
             <form class="" role="search">
                 <div class="position-relative icon-inside-input">
-                    <input id="externalSearchBox" class="form-control" type="search" placeholder="Search" aria-label="Search" style="width:600px">
+                    <input id="externalSearchBox" class="form-control" type="search" placeholder="Search by product name" aria-label="Search" style="width:600px">
                     <i class="far fa-search position-absolute"></i>
                 </div>
   
@@ -187,8 +187,8 @@
             <div class="col-md-4">
               <div class="card h-100">
                   <div class="card-body">
-                      <!-- <canvas class="chart"></canvas> -->
-                      <canvas id="geoChart  width="400" height="200""></canvas>
+                      <canvas class="chart" width="400" height="200"></canvas> 
+                      <!-- <canvas id="geoChart" width="400" height="200"></canvas>-->
                    </div>
               </div>
           </div>
@@ -202,12 +202,13 @@
             </div>
         </div>    
         <div class="row mt-3">
-          <div class="col-md-2"><button id="resetAll" class="btn btn-light w-100">Reset "All" Charts</button></div>
-          <div class="col-md-2"><button id=" " class="btn btn-dark btnX w-100">Load "All" Data</button></div>
+          <div class="col-md-1"></div>
+          <div class="col-md-2"><button id=" " class="btn btn-dark btnX w-100">Reload "All" Data</button></div>
           <div class="col-md-2"><button id="Top" class="btn btn-danger btnX w-100">Filter "<span class="fw-bold">Top</span>" Data</button></div>
-          <div class="col-md-2"> <button id="High" class="btn btn-custom btnX w-100">Filter "<span class="fw-bold">High</span>" Data</button></div>
+          <div class="col-md-2"><button id="High" class="btn btn-custom btnX w-100">Filter "<span class="fw-bold">High</span>" Data</button></div>
           <div class="col-md-2"><button id="Moderate" class="btn btn-warning btnX w-100">Filter "<span class="fw-bold">Moderate</span>" Data</button></div>
           <div class="col-md-2"><button id="Low" class="btn btn-primary btnX w-100">Filter "<span class="fw-bold">Low</span>" Data</button></div>
+          <div class="col-md-1"></div>
         </div>
 
         <div class="row mt-3">
@@ -281,7 +282,7 @@
 
 
 
-
+<!--(Page Loader Modal)-->
     <div  id="loader" class="modal" >
       <div class="modal-dialog modal-dialog-centered"style="width:150px">
         <div class="modal-content bg-info">
@@ -293,6 +294,8 @@
         </div>
       </div>
     </div>
+<!--(Page Loader Modal)-->
+<!--(Vendor Details Modal)-->
     <div id="vendorReport" class="modal fade">
       <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
@@ -303,11 +306,10 @@
           <div class="modal-body">
             <p><span id="VENDOR_NAME"></span>, identified by Vendor ID <span id="VENDOR_ID" class="fw-bold"></span>, specializes in "<span id="PRODUCT_NAME" class="fw-bold"></span>", operating out of <span id="STREET_NAME" class="fw-bold"></span>, <span id="CITY" class="fw-bold"></span>, <span id="STATE" class="fw-bold"></span>, with the ZIP code <span id="ZIP_CODE" class="fw-bold"></span>.</p>
             <p> The company, under the management of <span id="SELLER_FIRST_NAME" class="fw-bold"></span> <span id="SELLER_LAST_NAME" class="fw-bold"></span>, boasts an impressive annual sales figure of approximately <span id="ANNUAL_SALES" class="fw-bold"></span>, highlighting its significant impact in the <span id="PRODUCT_GATEGORY" class="fw-bold"></span>.</p>
-            <p>Despite a score category of <span id="score_category" class="fw-bold"></span> with a rating score of <span id="RATING_SCORE" class="fw-bold"></span> and a total score of <span id="TOTAL_SCORE" class="fw-bold"></span>, it maintains a product diversity score of <span id="Product_Diversity_Score" class="fw-bold"></span> and a verified company score of 10.</p>
             <p>The contact details, inclusive of phone (<span id="SELLER_PHONE" class="fw-bold"></span>) and email (<span id="SELLER_EMAIL" class="fw-bold"></span>), alongside the seller's URL, provide avenues for further engagement. Notably, the vendor demonstrates adherence to verification standards, indicated by its status as a verified company. </p>
             <p>Additionally, the alignment with market pricing is evident, with no reported price difference from the standard, setting the product price at <span id="PRODUCT_PRICE" class="fw-bold"></span>.</p>
           <br>
-          <p>If you feel the rating of <span id="score_category" class="fw-bold"></span> is incorrect, you make submit your rating along with a detailed statement as to why the rating should be changed.</p>
+          <p>If you feel the <span id="score_category" class="fw-bold"></span> rating is incorrect, you may submit your rating along with a detailed statement as to why the rating should be changed.</p>
           <br>
             <div class="card mb-">
               <div class="card-body">
@@ -343,7 +345,7 @@
         </div>
       </div>
     </div>
-
+<!--(Vendor Details Modal)-->
     
 
 
@@ -385,8 +387,6 @@ $('#resetAll').on('click', function(){
 $('#modalClose, #xMarksTheSpot').on('click', function(){
     $('#loader').hide();
 });
-    
-    
     $('.btnX').click(function(){
       $('.btnX').css('background-color', '');
         var rl = $(this).attr('id');
@@ -601,29 +601,60 @@ function getVendorProductCountByName(vendor){
             method: "getVendorProductCountByName",
             vendorName: vendor
         },
+        beforeSend: function() {
+            $('#loader').show();
+        },
         success: function(data){
-            //console.log(data.items);
+            console.log(data.items);
             var vendorCount = 0;
-                var productCount = 0;
-            if(rl.lendth > 0){
+            var productCount = 0;
+            var volumeCount = 0;
+            var top = 0;
+            var high = 0;
+            var moderate = 0;
+            var low = 0;
+            for (var i = 0; i < data.items.length; i++) {
+                vendorCount += parseFloat(data.items[i].VENDORS);
+                productCount += parseFloat(data.items[i].PRODUCTS);
+                volumeCount += parseFloat(data.items[i].ANNUAL_SALES);
                 
-                for (var i = 0; i < data.items.length; i++) {
-                    vendorCount += parseFloat(data.items[i].DISTINCT_VENDOR_COUNT);
-                    productCount += parseFloat(data.items[i].DISTINCT_PRODUCT_COUNT);
+                if(data.items[i].SCORE_CATEGORY != null && data.items[i].SCORE_CATEGORY == "TOP"){
+                    var top = data.items[i].CATEGORY_COUNT;
                 }
-                $('#vendors').text(vendorCount);
-                $('#products').text(productCount);
-
-            }else{
-                $('#vendors').text(data.items[0].DISTINCT_VENDOR_COUNT);
-                $('#products').text(data.items[0].DISTINCT_PRODUCT_COUNT);
+                if(data.items[i].SCORE_CATEGORY != null && data.items[i].SCORE_CATEGORY == "HIGH"){
+                    var high = data.items[i].CATEGORY_COUNT;
+                }
+                if(data.items[i].SCORE_CATEGORY != null && data.items[i].SCORE_CATEGORY == "MODERATE"){
+                    var moderate = data.items[i].CATEGORY_COUNT;
+                }
+                if(data.items[i].SCORE_CATEGORY != null && data.items[i].SCORE_CATEGORY == "LOW"){
+                    var low = data.items[i].CATEGORY_COUNT;
+                }
+          
+                if(volumeCount > 0){
+                    var volCount = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(volumeCount);
+                }else{
+                    var volCount = 0;
+                }
             }
+            console.log(top, high, moderate, low);
+            donutChart(top, high, moderate, low);
+            loadChart(top, high, moderate, low);
+
+            $('#vendors').text(vendorCount);
+            $('#products').text(productCount);
+            $('#volume').text(volCount);
+
+        },
+        complete: function() {
+            $('#loader').hide();
         },
         error: function(xhr, status, error) {
             $('#result').html("Error: " + error);
         }
     });
 }
+
 function getVendorProductCount(rl){
     $.ajax({
         url: 'assets/PHP/functions.php',
@@ -668,7 +699,6 @@ function getByVendor(vendor){
         },
         success: function(data){
             var tbl = data.items
-            getVendorProductCountByName(vendor)
             var high = 0;
             var top = 0;
             var moderate = 0;
@@ -701,7 +731,7 @@ function getByVendor(vendor){
                 "data": tbl,
                 "columns": [
                     { "data": "score_category" },
-                    { "data": "TOTAL_SCORE" }, // Make sure the property names match exactly
+                    { "data": "RATING_SCORE" }, // Make sure the property names match exactly
                     { "data": "VENDOR_NAME" },
                     { "data": "SELLER_FIRST_NAME" },
                     { "data": "PRODUCT_NAME" },
@@ -709,28 +739,24 @@ function getByVendor(vendor){
                     { "data": "CITY" },
                     { "data": "STATE" },
                     { "data": "ZIP_CODE" },
+                    { "data": "WEIGHT", "visible": false},
                 ],
-                "order": [[1, "desc"]],
+                "order": [[4, "desc"]],
                 "createdRow": function(row, data, dataIndex) {
-                  // Assuming TOTAL_SCORE is the second column, index
-                  var score = parseFloat(data.TOTAL_SCORE); // Make sure TOTAL_SCORE is a number
-
-                  // Change background color based on score value
-                  if (score >= 60) {
-                      $('td:eq(0)', row).css('background-color','#ff6384').addClass('rounded'); // Green for scores 80 and above
-                  } else if (score <= 59 && score >= 50) {
-                      $('td:eq(0)', row).css('background-color','#ff9f40').addClass('rounded'); // Orange for scores between 60 and 79
-                  } else if (score <= 49 && score >= 40) {
-                      $('td:eq(0)', row).css('background-color','#ffcd5').addClass('rounded'); // Yellow for scores between 40 and 59
-                  } else if (score <= 39){
-                      $('td:eq(0)', row).css('background-color','#36a2eb').addClass('rounded');
-                  }
-              }
+                  if(data.score_category == 'TOP'){
+                        $('td:eq(0)', row).css('background-color','rgb(255,99,132)').addClass('rounded');
+                    }else if(data.score_category == 'HIGH'){
+                        $('td:eq(0)', row).css('background-color','rgb(255,159,64)').addClass('rounded');
+                    }else if(data.score_category == 'MODERATE'){
+                        $('td:eq(0)', row).css('background-color','rgb(255,205,86)').addClass('rounded');
+                    }else if(data.score_category == 'LOW'){
+                        $('td:eq(0)', row).css('background-color','rgb(54,162,235)').addClass('rounded');
+                    }
+            }
             });
 
             $('#aimTblData tbody').on('click', 'td', function () {
                 var data = $('#aimTblData').DataTable().row( this ).data();
-                
                 if(data.score_category == 'TOP'){
                     var color = '#ff6384';
                 }else if(data.score_category == 'HIGH'){
@@ -819,13 +845,16 @@ function getByVendor(vendor){
                 $('#volume').text(volCount);
 
                 if ($.fn.DataTable.isDataTable('#aimTblData')) {
-                    $('#aimTblData').DataTable().destroy();
+                    var table = $('#aimTblData').DataTable(); // Store the instance
+                    table.destroy(); // Destroy the instance
+                    $('#aimTblData').empty(); // Clear the table body to prevent lingering data
                 }
-                $("#aimTblData").DataTable({
+
+               $("#aimTblData").DataTable({
                     "data": tbl,
                     "columns": [
                         { "data": "score_category" },
-                        { "data": "TOTAL_SCORE" }, // Make sure the property names match exactly
+                        { "data": "RATING_SCORE" }, // Make sure the property names match exactly
                         { "data": "VENDOR_NAME" },
                         { "data": "SELLER_FIRST_NAME" },
                         { "data": "PRODUCT_NAME" },
@@ -833,20 +862,31 @@ function getByVendor(vendor){
                         { "data": "CITY" },
                         { "data": "STATE" },
                         { "data": "ZIP_CODE" },
+                        { "data": "WEIGHT", "visible": false}
                     ],
-                    "order": [[1, "desc"]],
+                    "order": [[4, "desc"]],
                     "createdRow": function(row, data, dataIndex) {
-                      var score = parseFloat(data.TOTAL_SCORE);
-                      if (score >= 60) {
-                          $('td:eq(0)', row).css('background-color','#ff6384').addClass('rounded'); // Green for scores 80 and above
-                      } else if (score <= 59 && score >= 50) {
-                          $('td:eq(0)', row).css('background-color','#ff9f40').addClass('rounded'); // Orange for scores between 60 and 79
-                      } else if (score <= 49 && score >= 40) {
-                          $('td:eq(0)', row).css('background-color','#ffcd5').addClass('rounded'); // Yellow for scores between 40 and 59
-                      } else if (score <= 39){
-                          $('td:eq(0)', row).css('background-color','#36a2eb').addClass('rounded');
+                      if(data.score_category == 'TOP'){
+                          $('td:eq(0)', row).css('background-color','rgb(255,99,132)').addClass('rounded');
+                      }else if(data.score_category == 'HIGH'){
+                          $('td:eq(0)', row).css('background-color','rgb(255,159,64)').addClass('rounded');
+                      }else if(data.score_category == 'MODERATE'){
+                          $('td:eq(0)', row).css('background-color','rgb(255,205,86)').addClass('rounded');
+                      }else if(data.score_category == 'LOW'){
+                          $('td:eq(0)', row).css('background-color','rgb(54,162,235)').addClass('rounded');
                       }
                   }
+                });
+                $('#externalSearchBox').on('keyup', function() {
+                    var table = $('#aimTblData').DataTable()
+                    table.columns(4).search(this.value).draw();
+                    table.order([9, 'desc']).draw();
+                    var vendor = this.value;
+                    if (vendor.length > 0) {
+                        getVendorProductCountByName(vendor)
+                    }else{
+                        getVendorProductCount(rl)
+                    }
                 });
 
                 $('#aimTblData tbody').on('click', 'tr', function () {
