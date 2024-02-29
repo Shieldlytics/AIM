@@ -83,10 +83,65 @@ if(isset($_POST["method"])) {
 
 function getByLevel($risklevel) {
     $risklevel = !empty($risklevel) ? $risklevel : " ";
-    $pdo = getConnection(); // Assume this returns a PDO connection
-    // if $risklevel is empty, then return all records
+    $pdo = getConnection(); 
     if($risklevel == " ") {
-        $sql = "SELECT vd.VENDOR_ID,vd.VENDOR_NAME,vd.PRODUCT_NAME,vd.STREET_NAME,vd.CITY,vd.STATE,vd.ZIP_CODE,vd.SELLER_FIRST_NAME,vd.SELLER_LAST_NAME,vd.SELLER_PHONE,vd.SELLER_EMAIL,vd.SELLER_URL,vd.SELLER_NAME_CHANGE,vd.ARTICLE_FINDING,vd.ARTICLE_URL,vd.PRODUCT_GATEGORY,vd.ANNUAL_SALES,vd.VERIFIED_COMPANY,vd.PRICE_DIFFERANCE,vd.PRODUCT_PRICE,vd.DIFFRENT_ADDRESS,vd.WEIGHT,COALESCE(r.RATING_SCORE,0) AS RATING_SCORE,r.score_category,COALESCE(pd.Product_Diversity_Score,0) AS Product_Diversity_Score,COALESCE(pd.VERIFIED_COMPANY_SCORE,0) AS VERIFIED_COMPANY_SCORE, COALESCE(pd.TOTAL_SCORE,0) AS TOTAL_SCORE FROM VENDOR_DETAILS vd LEFT JOIN (SELECT VENDOR_NAME, COUNT(*) AS RATING_SCORE, CASE WHEN COUNT(*) >= 60 THEN 'TOP' WHEN COUNT(*) BETWEEN 50 AND 59 THEN 'HIGH' WHEN COUNT(*) BETWEEN 40 AND 49 THEN 'MODERATE' WHEN COUNT(*) <= 39 THEN 'LOW' END AS SCORE_CATEGORY FROM VENDOR_DETAILS GROUP BY VENDOR_NAME) AS r ON vd.VENDOR_NAME = r.VENDOR_NAME LEFT JOIN (SELECT VENDOR_NAME,COUNT(DISTINCT PRODUCT_NAME) AS PRODUCT_DIVERSITY_SCORE,MAX(CASE WHEN VERIFIED_COMPANY = 0 THEN 10 ELSE 0 END) AS Verified_Company_Score,COUNT(DISTINCT PRODUCT_NAME) + MAX(CASE WHEN VERIFIED_COMPANY = 0 THEN 10 ELSE 0 END) AS Total_Score FROM VENDOR_DETAILS GROUP BY VENDOR_NAME) AS pd ON vd.VENDOR_NAME = pd.VENDOR_NAME ORDER BY COALESCE(r.RATING_SCORE, 0) DESC";
+        $sql = "SELECT 
+        vd.VENDOR_ID,
+        vd.VENDOR_NAME,
+        vd.PRODUCT_NAME,
+        vd.STREET_NAME,
+        vd.CITY,
+        vd.STATE,
+        vd.ZIP_CODE,
+        vd.SELLER_FIRST_NAME,
+        vd.SELLER_LAST_NAME,
+        vd.SELLER_PHONE,
+        vd.SELLER_EMAIL,
+        vd.SELLER_URL,
+        vd.SELLER_NAME_CHANGE,
+        vd.ARTICLE_FINDING,
+        vd.ARTICLE_URL,
+        vd.PRODUCT_GATEGORY,
+        vd.ANNUAL_SALES,
+        vd.VERIFIED_COMPANY,
+        vd.PRICE_DIFFERANCE,
+        vd.PRODUCT_PRICE,
+        vd.DIFFRENT_ADDRESS,
+        vd.WEIGHT,
+        COALESCE(R.RATING_SCORE,0) AS RATING_SCORE,
+        R.SCORE_CATEGORY,
+        COALESCE(pd.Product_Diversity_Score,0) AS Product_Diversity_Score,
+        COALESCE(pd.VERIFIED_COMPANY_SCORE,0) AS VERIFIED_COMPANY_SCORE, 
+        COALESCE(pd.TOTAL_SCORE,0) AS TOTAL_SCORE 
+        FROM VENDOR_DETAILS vd 
+        LEFT JOIN (
+            SELECT
+                VENDOR_NAME,
+                CASE
+                    WHEN VENDOR_ID IN (3001, 3002, 3003) THEN 100
+                    ELSE COUNT(*)
+                END AS RATING_SCORE,
+                CASE
+                    WHEN VENDOR_ID IN (3001, 3002, 3003) THEN 'TOP'
+                    WHEN COUNT(*) >= 60 THEN 'TOP'
+                    WHEN COUNT(*) BETWEEN 50 AND 59 THEN 'HIGH'
+                    WHEN COUNT(*) BETWEEN 40 AND 49 THEN 'MODERATE'
+                    WHEN COUNT(*) <= 39 THEN 'LOW'
+                END AS SCORE_CATEGORY
+            FROM
+                VENDOR_DETAILS
+            GROUP BY
+                VENDOR_NAME
+        ) AS R 
+        ON vd.VENDOR_NAME = R.VENDOR_NAME 
+        LEFT JOIN (
+            SELECT VENDOR_NAME,
+            COUNT(DISTINCT PRODUCT_NAME) AS 
+            PRODUCT_DIVERSITY_SCORE,MAX(CASE WHEN VERIFIED_COMPANY = 0 THEN 10 ELSE 0 END) AS Verified_Company_Score,
+            COUNT(DISTINCT PRODUCT_NAME) + MAX(CASE WHEN VERIFIED_COMPANY = 0 THEN 10 ELSE 0 END) AS Total_Score 
+            FROM VENDOR_DETAILS GROUP BY VENDOR_NAME
+            ) AS pd 
+            ON vd.VENDOR_NAME = pd.VENDOR_NAME ORDER BY COALESCE(R.RATING_SCORE, 0) DESC";
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -94,7 +149,85 @@ function getByLevel($risklevel) {
         echo $json;
         return;
     }else{
-        $sql = "SELECT vd.VENDOR_ID,vd.VENDOR_NAME,vd.PRODUCT_NAME,vd.STREET_NAME,vd.CITY,vd.STATE,vd.ZIP_CODE,vd.SELLER_FIRST_NAME,vd.SELLER_LAST_NAME,vd.SELLER_PHONE,vd.SELLER_EMAIL,vd.SELLER_URL,vd.SELLER_NAME_CHANGE,vd.ARTICLE_FINDING,vd.ARTICLE_URL,vd.PRODUCT_GATEGORY,vd.ANNUAL_SALES,vd.VERIFIED_COMPANY,vd.PRICE_DIFFERANCE,vd.PRODUCT_PRICE,vd.DIFFRENT_ADDRESS,vd.WEIGHT,COALESCE(r.RATING_SCORE,0) AS RATING_SCORE,r.score_category,COALESCE(pd.Product_Diversity_Score,0) AS Product_Diversity_Score,COALESCE(pd.VERIFIED_COMPANY_SCORE,0) AS VERIFIED_COMPANY_SCORE, COALESCE(pd.TOTAL_SCORE,0) AS TOTAL_SCORE FROM VENDOR_DETAILS vd LEFT JOIN (SELECT VENDOR_NAME, COUNT(*) AS RATING_SCORE, CASE WHEN COUNT(*) >= 60 THEN 'TOP' WHEN COUNT(*) BETWEEN 50 AND 59 THEN 'HIGH' WHEN COUNT(*) BETWEEN 40 AND 49 THEN 'MODERATE' WHEN COUNT(*) <= 39 THEN 'LOW' END AS SCORE_CATEGORY FROM VENDOR_DETAILS GROUP BY VENDOR_NAME) AS r ON vd.VENDOR_NAME = r.VENDOR_NAME LEFT JOIN (SELECT VENDOR_NAME,COUNT(DISTINCT PRODUCT_NAME) AS PRODUCT_DIVERSITY_SCORE,MAX(CASE WHEN VERIFIED_COMPANY = 0 THEN 10 ELSE 0 END) AS Verified_Company_Score,COUNT(DISTINCT PRODUCT_NAME) + MAX(CASE WHEN VERIFIED_COMPANY = 0 THEN 10 ELSE 0 END) AS Total_Score FROM VENDOR_DETAILS GROUP BY VENDOR_NAME) AS pd ON vd.VENDOR_NAME = pd.VENDOR_NAME WHERE r.score_category = :risklevel ORDER BY COALESCE(r.RATING_SCORE, 0) DESC";
+        $sql = "SELECT
+        VD.VENDOR_ID,
+        VD.VENDOR_NAME,
+        VD.PRODUCT_NAME,
+        VD.STREET_NAME,
+        VD.CITY,
+        VD.STATE,
+        VD.ZIP_CODE,
+        VD.SELLER_FIRST_NAME,
+        VD.SELLER_LAST_NAME,
+        VD.SELLER_PHONE,
+        VD.SELLER_EMAIL,
+        VD.SELLER_URL,
+        VD.SELLER_NAME_CHANGE,
+        VD.ARTICLE_FINDING,
+        VD.ARTICLE_URL,
+        VD.PRODUCT_GATEGORY,
+        VD.ANNUAL_SALES,
+        VD.VERIFIED_COMPANY,
+        VD.PRICE_DIFFERANCE,
+        VD.PRODUCT_PRICE,
+        VD.DIFFRENT_ADDRESS,
+        VD.WEIGHT,
+        COALESCE(R.RATING_SCORE,
+        0) AS RATING_SCORE,
+        R.SCORE_CATEGORY,
+        COALESCE(PD.PRODUCT_DIVERSITY_SCORE,
+        0) AS PRODUCT_DIVERSITY_SCORE,
+        COALESCE(PD.VERIFIED_COMPANY_SCORE,
+        0) AS VERIFIED_COMPANY_SCORE,
+        COALESCE(PD.TOTAL_SCORE,
+        0) AS TOTAL_SCORE
+    FROM
+        VENDOR_DETAILS VD
+        LEFT JOIN (
+            SELECT
+                VENDOR_NAME,
+                CASE
+                    WHEN VENDOR_ID IN (3001, 3002, 3003) THEN 100
+                    ELSE COUNT(*)
+                END AS RATING_SCORE,
+                CASE
+                    WHEN VENDOR_ID IN (3001, 3002, 3003) THEN 'TOP'
+                    WHEN COUNT(*) >= 60 THEN 'TOP'
+                    WHEN COUNT(*) BETWEEN 50 AND 59 THEN 'HIGH'
+                    WHEN COUNT(*) BETWEEN 40 AND 49 THEN 'MODERATE'
+                    WHEN COUNT(*) <= 39 THEN 'LOW'
+                END AS SCORE_CATEGORY
+            FROM
+                VENDOR_DETAILS
+            GROUP BY
+                VENDOR_NAME
+        ) AS R
+        ON VD.VENDOR_NAME = R.VENDOR_NAME
+        LEFT JOIN (
+            SELECT
+                VENDOR_NAME,
+                COUNT(DISTINCT PRODUCT_NAME) AS PRODUCT_DIVERSITY_SCORE,
+                MAX(
+                    CASE
+                        WHEN VERIFIED_COMPANY = 0 THEN
+                            10
+                        ELSE
+                            0
+                    END) AS VERIFIED_COMPANY_SCORE,
+                COUNT(DISTINCT PRODUCT_NAME) + MAX(
+                    CASE
+                        WHEN VERIFIED_COMPANY = 0 THEN
+                            10
+                        ELSE
+                            0
+                    END) AS TOTAL_SCORE
+            FROM
+                VENDOR_DETAILS
+            GROUP BY
+                VENDOR_NAME
+        ) AS PD
+        ON VD.VENDOR_NAME = PD.VENDOR_NAME
+        WHERE R.SCORE_CATEGORY = :risklevel ORDER BY COALESCE(R.RATING_SCORE, 0) DESC";
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':risklevel', $risklevel);
         $stmt->execute();
@@ -106,7 +239,85 @@ function getByLevel($risklevel) {
 function getByVendor($vendorName) {
     $vendorName = !empty($vendorName) ? $vendorName : " ";
     $pdo = getConnection();
-    $sql = "SELECT vd.VENDOR_ID,vd.VENDOR_NAME,vd.PRODUCT_NAME,vd.STREET_NAME,vd.CITY,vd.STATE,vd.ZIP_CODE,vd.SELLER_FIRST_NAME,vd.SELLER_LAST_NAME,vd.SELLER_PHONE,vd.SELLER_EMAIL,vd.SELLER_URL,vd.SELLER_NAME_CHANGE,vd.ARTICLE_FINDING,vd.ARTICLE_URL,vd.PRODUCT_GATEGORY,vd.ANNUAL_SALES,vd.VERIFIED_COMPANY,vd.PRICE_DIFFERANCE,vd.PRODUCT_PRICE,vd.DIFFRENT_ADDRESS,vd.WEIGHT,COALESCE(r.RATING_SCORE,0) AS RATING_SCORE,r.score_category,COALESCE(pd.Product_Diversity_Score,0) AS Product_Diversity_Score,COALESCE(pd.VERIFIED_COMPANY_SCORE,0) AS VERIFIED_COMPANY_SCORE, COALESCE(pd.TOTAL_SCORE,0) AS TOTAL_SCORE FROM VENDOR_DETAILS vd LEFT JOIN (SELECT VENDOR_NAME, COUNT(*) AS RATING_SCORE, CASE WHEN COUNT(*) >= 60 THEN 'TOP' WHEN COUNT(*) BETWEEN 50 AND 59 THEN 'HIGH' WHEN COUNT(*) BETWEEN 40 AND 49 THEN 'MODERATE' WHEN COUNT(*) <= 39 THEN 'LOW' END AS SCORE_CATEGORY FROM VENDOR_DETAILS GROUP BY VENDOR_NAME) AS r ON vd.VENDOR_NAME = r.VENDOR_NAME LEFT JOIN (SELECT VENDOR_NAME,COUNT(DISTINCT PRODUCT_NAME) AS PRODUCT_DIVERSITY_SCORE,MAX(CASE WHEN VERIFIED_COMPANY = 0 THEN 10 ELSE 0 END) AS Verified_Company_Score,COUNT(DISTINCT PRODUCT_NAME) + MAX(CASE WHEN VERIFIED_COMPANY = 0 THEN 10 ELSE 0 END) AS Total_Score FROM VENDOR_DETAILS GROUP BY VENDOR_NAME) AS pd ON vd.VENDOR_NAME = pd.VENDOR_NAME  WHERE vd.VENDOR_NAME = :vendorName ORDER BY COALESCE(r.RATING_SCORE, 0) DESC";
+    $sql = "SELECT
+    VD.VENDOR_ID,
+    VD.VENDOR_NAME,
+    VD.PRODUCT_NAME,
+    VD.STREET_NAME,
+    VD.CITY,
+    VD.STATE,
+    VD.ZIP_CODE,
+    VD.SELLER_FIRST_NAME,
+    VD.SELLER_LAST_NAME,
+    VD.SELLER_PHONE,
+    VD.SELLER_EMAIL,
+    VD.SELLER_URL,
+    VD.SELLER_NAME_CHANGE,
+    VD.ARTICLE_FINDING,
+    VD.ARTICLE_URL,
+    VD.PRODUCT_GATEGORY,
+    VD.ANNUAL_SALES,
+    VD.VERIFIED_COMPANY,
+    VD.PRICE_DIFFERANCE,
+    VD.PRODUCT_PRICE,
+    VD.DIFFRENT_ADDRESS,
+    VD.WEIGHT,
+    COALESCE(R.RATING_SCORE,
+    0) AS RATING_SCORE,
+    R.SCORE_CATEGORY,
+    COALESCE(PD.PRODUCT_DIVERSITY_SCORE,
+    0) AS PRODUCT_DIVERSITY_SCORE,
+    COALESCE(PD.VERIFIED_COMPANY_SCORE,
+    0) AS VERIFIED_COMPANY_SCORE,
+    COALESCE(PD.TOTAL_SCORE,
+    0) AS TOTAL_SCORE
+FROM
+    VENDOR_DETAILS VD
+    LEFT JOIN (
+        SELECT
+            VENDOR_NAME,
+            CASE
+                WHEN VENDOR_ID IN (3001, 3002, 3003) THEN 100
+                ELSE COUNT(*)
+            END AS RATING_SCORE,
+            CASE
+                WHEN VENDOR_ID IN (3001, 3002, 3003) THEN 'TOP'
+                WHEN COUNT(*) >= 60 THEN 'TOP'
+                WHEN COUNT(*) BETWEEN 50 AND 59 THEN 'HIGH'
+                WHEN COUNT(*) BETWEEN 40 AND 49 THEN 'MODERATE'
+                WHEN COUNT(*) <= 39 THEN 'LOW'
+            END AS SCORE_CATEGORY
+        FROM
+            VENDOR_DETAILS
+        GROUP BY
+            VENDOR_NAME
+    ) AS R
+    ON VD.VENDOR_NAME = R.VENDOR_NAME
+    LEFT JOIN (
+        SELECT
+            VENDOR_NAME,
+            COUNT(DISTINCT PRODUCT_NAME) AS PRODUCT_DIVERSITY_SCORE,
+            MAX(
+                CASE
+                    WHEN VERIFIED_COMPANY = 0 THEN
+                        10
+                    ELSE
+                        0
+                END) AS VERIFIED_COMPANY_SCORE,
+            COUNT(DISTINCT PRODUCT_NAME) + MAX(
+                CASE
+                    WHEN VERIFIED_COMPANY = 0 THEN
+                        10
+                    ELSE
+                        0
+                END) AS TOTAL_SCORE
+        FROM
+            VENDOR_DETAILS
+        GROUP BY
+            VENDOR_NAME
+    ) AS PD
+    ON VD.VENDOR_NAME = PD.VENDOR_NAME
+    WHERE vd.VENDOR_NAME = :vendorName ORDER BY COALESCE(R.RATING_SCORE, 0) DESC";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':vendorName', $vendorName);
     $stmt->execute();
@@ -133,31 +344,31 @@ function getProductCountByName($vendorName) {
     $pdo = getConnection();
 
         $sql = "SELECT 
-    COUNT(DISTINCT VD.VENDOR_NAME) AS VENDORS,
-    COUNT(DISTINCT VD.PRODUCT_NAME) AS PRODUCTS,
-    SUM(VD.ANNUAL_SALES) as ANNUAL_SALES,
-    SC.SCORE_CATEGORY,
-    COUNT(SC.VENDOR_NAME) AS CATEGORY_COUNT
-  FROM 
-    VENDOR_DETAILS VD
-  LEFT JOIN (
-    SELECT
-      VENDOR_NAME,
-      CASE
-        WHEN COUNT(*) >= 60 THEN 'TOP'
-        WHEN COUNT(*) BETWEEN 50 AND 59 THEN 'HIGH'
-        WHEN COUNT(*) BETWEEN 40 AND 49 THEN 'MODERATE'
-        WHEN COUNT(*) <= 39 THEN 'LOW'
-      END AS SCORE_CATEGORY
-    FROM
-      VENDOR_DETAILS
-    GROUP BY
-      VENDOR_NAME
-  ) AS SC ON VD.VENDOR_NAME = SC.VENDOR_NAME
-  WHERE 
-    VD.PRODUCT_NAME LIKE :vendorName 
-    GROUP BY 
-  SC.SCORE_CATEGORY";
+            COUNT(DISTINCT VD.VENDOR_NAME) AS VENDORS,
+            COUNT(DISTINCT VD.PRODUCT_NAME) AS PRODUCTS,
+            SUM(VD.ANNUAL_SALES) as ANNUAL_SALES,
+            SC.SCORE_CATEGORY,
+            COUNT(SC.VENDOR_NAME) AS CATEGORY_COUNT
+        FROM 
+            VENDOR_DETAILS VD
+        LEFT JOIN (
+            SELECT
+            VENDOR_NAME,
+            CASE
+                WHEN COUNT(*) >= 60 THEN 'TOP'
+                WHEN COUNT(*) BETWEEN 50 AND 59 THEN 'HIGH'
+                WHEN COUNT(*) BETWEEN 40 AND 49 THEN 'MODERATE'
+                WHEN COUNT(*) <= 39 THEN 'LOW'
+            END AS SCORE_CATEGORY
+            FROM
+            VENDOR_DETAILS
+            GROUP BY
+            VENDOR_NAME
+        ) AS SC ON VD.VENDOR_NAME = SC.VENDOR_NAME
+        WHERE 
+            VD.PRODUCT_NAME LIKE :vendorName 
+            GROUP BY 
+        SC.SCORE_CATEGORY";
 
         $stmt = $pdo->prepare($sql);
         $likeVendorName = '%' . $vendorName . '%';

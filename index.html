@@ -212,22 +212,13 @@
         </div>
 
         <div class="row mt-3">
-            <!-- <div class="col-md-4 mb-3">
-                <div class="card shadow-sm h-100">
-                    <div class="card-body">
-                      <h3>Bubble Chart Data</h3>
-                        <canvas id="myBubbleChart" height="350"></canvas>
-                    </div>
-                </div>
-            </div> -->
           <div class="col-md-12">
             <div class="card">
               <div class="card-body">
                 <div class="table-responsive">
-                  <table
-                    id="aimTblData"
-                    class="table table-sm table-striped data-table table-hover"
-                    style="width: 100%" >
+                  
+                  
+                    <table id="aimTblData" class="table table-sm table-striped data-table table-hover" style="width: 100%" >
                     <thead>
                       <tr>
                         <th>RATING</th>
@@ -242,6 +233,8 @@
                       </tr>
                     </thead>
                   </table>
+
+
                 </div>
               </div>
             </div>
@@ -304,12 +297,17 @@
             <button id="xMarksTheSpot" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <p><span id="VENDOR_NAME"></span>, identified by Vendor ID <span id="VENDOR_ID" class="fw-bold"></span>, specializes in "<span id="PRODUCT_NAME" class="fw-bold"></span>", operating out of <span id="STREET_NAME" class="fw-bold"></span>, <span id="CITY" class="fw-bold"></span>, <span id="STATE" class="fw-bold"></span>, with the ZIP code <span id="ZIP_CODE" class="fw-bold"></span>.</p>
-            <p> The company, under the management of <span id="SELLER_FIRST_NAME" class="fw-bold"></span> <span id="SELLER_LAST_NAME" class="fw-bold"></span>, boasts an impressive annual sales figure of approximately <span id="ANNUAL_SALES" class="fw-bold"></span>, highlighting its significant impact in the <span id="PRODUCT_GATEGORY" class="fw-bold"></span>.</p>
-            <p>The contact details, inclusive of phone (<span id="SELLER_PHONE" class="fw-bold"></span>) and email (<span id="SELLER_EMAIL" class="fw-bold"></span>), alongside the seller's URL, provide avenues for further engagement. Notably, the vendor demonstrates adherence to verification standards, indicated by its status as a verified company. </p>
-            <p>Additionally, the alignment with market pricing is evident, with no reported price difference from the standard, setting the product price at <span id="PRODUCT_PRICE" class="fw-bold"></span>.</p>
+            <p class="h4">PRODUCT: <span id="PRODUCT_NAME"></span></p>
+            <p>Identified on vendor platform: <span id="VENDOR_NAME"></span> Marketplace</p>
+            <p>Rating: <span class="SCORE_CATEGORY"></span></p><br>
+
+            <p>The seller makes use of a name similar to a more well-known and established company, As <span id="SELLER_FIRST_NAME"></span></p>
+            <p>Unable to identify business filings under company name in state they are operating out of.</p>
+            <p>While the seller has 75 listings on <span id="VENDOR_NAME"></span> Marketplace there are only 13 unique items being sold with the same product being listed multiple times at different price points.</p>
+            <p>Pricing ranges between <span id="PRICE_VARIANCE"></span> and <span id="PRODUCT_PRICE"></span> per unit which is both a markedly lower and higher price offered by other vendors.</p>
+     
           <br>
-          <p>If you feel the <span id="score_category" class="fw-bold"></span> rating is incorrect, you may submit your rating along with a detailed statement as to why the rating should be changed.</p>
+          <p>If you feel the <span id="SCORE_CATEGORY" class="fw-bold"></span> rating is incorrect, you may submit your rating along with a detailed statement as to why the rating should be changed.</p>
           <br>
             <div class="card mb-">
               <div class="card-body">
@@ -704,13 +702,13 @@ function getByVendor(vendor){
             var moderate = 0;
             var low = 0;
             for (var i = 0; i < tbl.length; i++) {
-                if(tbl[i].score_category == 'HIGH'){
+                if(tbl[i].SCORE_CATEGORY == 'HIGH'){
                     high++;
-                }else if(tbl[i].score_category == 'TOP'){
+                }else if(tbl[i].SCORE_CATEGORY == 'TOP'){
                     top++;
-                }else if(tbl[i].score_category == 'MODERATE'){
+                }else if(tbl[i].SCORE_CATEGORY == 'MODERATE'){
                     moderate++;
-                }else if(tbl[i].score_category == 'LOW'){
+                }else if(tbl[i].SCORE_CATEGORY == 'LOW'){
                     low++;
                 }
             }
@@ -730,8 +728,16 @@ function getByVendor(vendor){
             var table = $("#aimTblData").DataTable({
                 "data": tbl,
                 "columns": [
-                    { "data": "score_category" },
-                    { "data": "RATING_SCORE" }, // Make sure the property names match exactly
+                    { "data": "SCORE_CATEGORY" },
+                    { "data": "RATING_SCORE" },
+                    { "data": "VENDOR_NAME" },
+                    { "data": "SELLER_FIRST_NAME" },
+                    { "data": "PRODUCT_NAME" },
+                    { "data": "STREET_NAME" },
+                    { "data": "CITY" },
+                    { "data": "STATE" },
+                    { "data": "ZIP_CODE" },
+                    { "data": "WEIGHT", "visible": false},
                     { "data": "VENDOR_NAME" },
                     { "data": "SELLER_FIRST_NAME" },
                     { "data": "PRODUCT_NAME" },
@@ -743,13 +749,13 @@ function getByVendor(vendor){
                 ],
                 "order": [[4, "desc"]],
                 "createdRow": function(row, data, dataIndex) {
-                  if(data.score_category == 'TOP'){
+                  if(data.SCORE_CATEGORY == 'TOP'){
                         $('td:eq(0)', row).css('background-color','rgb(255,99,132)').addClass('rounded');
-                    }else if(data.score_category == 'HIGH'){
+                    }else if(data.SCORE_CATEGORY == 'HIGH'){
                         $('td:eq(0)', row).css('background-color','rgb(255,159,64)').addClass('rounded');
-                    }else if(data.score_category == 'MODERATE'){
+                    }else if(data.SCORE_CATEGORY == 'MODERATE'){
                         $('td:eq(0)', row).css('background-color','rgb(255,205,86)').addClass('rounded');
-                    }else if(data.score_category == 'LOW'){
+                    }else if(data.SCORE_CATEGORY == 'LOW'){
                         $('td:eq(0)', row).css('background-color','rgb(54,162,235)').addClass('rounded');
                     }
             }
@@ -757,18 +763,22 @@ function getByVendor(vendor){
 
             $('#aimTblData tbody').on('click', 'td', function () {
                 var data = $('#aimTblData').DataTable().row( this ).data();
-                if(data.score_category == 'TOP'){
+                if(data.SCORE_CATEGORY == 'TOP'){
                     var color = '#ff6384';
-                }else if(data.score_category == 'HIGH'){
+                }else if(data.SCORE_CATEGORY == 'HIGH'){
                     var color = '#ff9f40';
-                }else if(data.score_category == 'MODERATE'){
+                }else if(data.SCORE_CATEGORY == 'MODERATE'){
                     var color = '#ffcd56';
-                }else if(data.score_category == 'LOW'){
+                }else if(data.SCORE_CATEGORY == 'LOW'){
                     var color = '#36a2eb';
                 }
                 let ProductPrice = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(data.PRODUCT_PRICE);
                 let AnnualSales = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(data.ANNUAL_SALES);
-
+                
+                var originalPrice = parseFloat($(data.PRODUCT_PRICE));
+                var variancePercentage = (Math.random() * 20) - 80; // Random variance between -10% and +10%
+                var newPrice = originalPrice + (originalPrice * variancePercentage / 100);
+                var newPrice = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(newPrice.toFixed(2)); 
                 
                 $('#VENDOR_NAME').text(data.VENDOR_NAME);
                 $('#VendorName').text(data.VENDOR_NAME);
@@ -788,7 +798,9 @@ function getByVendor(vendor){
                 $('#SELLER_PHONE').text(data.SELLER_PHONE);
                 $('#SELLER_EMAIL').text(data.SELLER_EMAIL);
                 $('#PRODUCT_PRICE').text(ProductPrice);
-                $('#score_category').html('<span class="p-1 rounded" style="background-color:'+color+'">'+data.score_category+'</span>');
+                $('#PRICE_VARIANCE').text(newPrice);
+                $('#SCORE_CATEGORY').html('<span class="p-1 rounded" style="background-color:'+color+'">'+data.SCORE_CATEGORY+'</span>');
+                $('.SCORE_CATEGORY').html(data.SCORE_CATEGORY);
                 //getByVendor(vendorName=data.VENDOR_NAME);
 
                 $('#reportIt').modal('show');
@@ -824,13 +836,13 @@ function getByVendor(vendor){
                 var moderate = 0;
                 var low = 0;
                 for (var i = 0; i < tbl.length; i++) {
-                    if(tbl[i].score_category == 'HIGH'){
+                    if(tbl[i].SCORE_CATEGORY == 'HIGH'){
                         high++;
-                    }else if(tbl[i].score_category == 'TOP'){
+                    }else if(tbl[i].SCORE_CATEGORY == 'TOP'){
                         top++;
-                    }else if(tbl[i].score_category == 'MODERATE'){
+                    }else if(tbl[i].SCORE_CATEGORY == 'MODERATE'){
                         moderate++;
-                    }else if(tbl[i].score_category == 'LOW'){
+                    }else if(tbl[i].SCORE_CATEGORY == 'LOW'){
                         low++;
                     }
                 }
@@ -845,16 +857,14 @@ function getByVendor(vendor){
                 $('#volume').text(volCount);
 
                 if ($.fn.DataTable.isDataTable('#aimTblData')) {
-                    var table = $('#aimTblData').DataTable(); // Store the instance
-                    table.destroy(); // Destroy the instance
-                    $('#aimTblData').empty(); // Clear the table body to prevent lingering data
+                    var table = $('#aimTblData').DataTable().destroy(); // Destroy the instance
                 }
 
                $("#aimTblData").DataTable({
                     "data": tbl,
                     "columns": [
-                        { "data": "score_category" },
-                        { "data": "RATING_SCORE" }, // Make sure the property names match exactly
+                        { "data": "SCORE_CATEGORY" },
+                        { "data": "RATING_SCORE" },
                         { "data": "VENDOR_NAME" },
                         { "data": "SELLER_FIRST_NAME" },
                         { "data": "PRODUCT_NAME" },
@@ -866,17 +876,18 @@ function getByVendor(vendor){
                     ],
                     "order": [[4, "desc"]],
                     "createdRow": function(row, data, dataIndex) {
-                      if(data.score_category == 'TOP'){
+                      if(data.SCORE_CATEGORY == 'TOP'){
                           $('td:eq(0)', row).css('background-color','rgb(255,99,132)').addClass('rounded');
-                      }else if(data.score_category == 'HIGH'){
+                      }else if(data.SCORE_CATEGORY == 'HIGH'){
                           $('td:eq(0)', row).css('background-color','rgb(255,159,64)').addClass('rounded');
-                      }else if(data.score_category == 'MODERATE'){
+                      }else if(data.SCORE_CATEGORY == 'MODERATE'){
                           $('td:eq(0)', row).css('background-color','rgb(255,205,86)').addClass('rounded');
-                      }else if(data.score_category == 'LOW'){
+                      }else if(data.SCORE_CATEGORY == 'LOW'){
                           $('td:eq(0)', row).css('background-color','rgb(54,162,235)').addClass('rounded');
                       }
                   }
                 });
+                
                 $('#externalSearchBox').on('keyup', function() {
                     var table = $('#aimTblData').DataTable()
                     table.columns(4).search(this.value).draw();
@@ -891,17 +902,22 @@ function getByVendor(vendor){
 
                 $('#aimTblData tbody').on('click', 'tr', function () {
                     var data = $('#aimTblData').DataTable().row( this ).data();
-                    if(data.score_category == 'TOP'){
+                    if(data.SCORE_CATEGORY == 'TOP'){
                         var color = '#ff6384';
-                    }else if(data.score_category == 'HIGH'){
+                    }else if(data.SCORE_CATEGORY == 'HIGH'){
                         var color = '#ff9f40';
-                    }else if(data.score_category == 'MODERATE'){
+                    }else if(data.SCORE_CATEGORY == 'MODERATE'){
                         var color = '#ffcd56';
-                    }else if(data.score_category == 'LOW'){
+                    }else if(data.SCORE_CATEGORY == 'LOW'){
                         var color = '#36a2eb';
                     }
                     let ProductPrice = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(data.PRODUCT_PRICE);
                     let AnnualSales = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(data.ANNUAL_SALES);
+                    
+                    var originalPrice = parseFloat(data.PRODUCT_PRICE);
+                    var variancePercentage = (Math.random() * 20) - 80; // Random variance between -10% and +10%
+                    var newPrice = originalPrice + (originalPrice * variancePercentage / 100);
+                    var newPrice = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(newPrice.toFixed(2)); 
 
                     $('#VENDOR_NAME').text(data.VENDOR_NAME);
                     $('#VendorName').text(data.VENDOR_NAME);
@@ -921,7 +937,9 @@ function getByVendor(vendor){
                     $('#SELLER_PHONE').text(data.SELLER_PHONE);
                     $('#SELLER_EMAIL').text(data.SELLER_EMAIL);
                     $('#PRODUCT_PRICE').text(ProductPrice);
-                    $('#score_category').html('<span class="p-1 rounded" style="background-color:'+color+'">'+data.score_category+'</span>');
+                    $('#PRICE_VARIANCE').text(newPrice);
+                    $('#SCORE_CATEGORY').html('<span class="p-1 rounded" style="background-color:'+color+'">'+data.SCORE_CATEGORY+'</span>');
+                    $('.SCORE_CATEGORY').html(data.SCORE_CATEGORY);
                     getByVendor(vendorName=data.VENDOR_NAME, rl);
                     $('#vendorReport').modal('show');
                     
