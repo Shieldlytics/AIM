@@ -305,11 +305,29 @@
             <p>Unable to identify business filings under company name in state they are operating out of.</p>
             <p>While the seller has 75 listings on <span id="VENDOR_NAME"></span> Marketplace there are only 13 unique items being sold with the same product being listed multiple times at different price points.</p>
             <p>Pricing ranges between <span id="PRICE_VARIANCE"></span> and <span id="PRODUCT_PRICE"></span> per unit which is both a markedly lower and higher price offered by other vendors.</p>
-     
+     <br>
+     <div class="card imageCompare" style="display: none;">
+        <div class="card-body">
+            <div class="card-title h5">
+                <p>Product Image Comparison</p>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <img src="assets/images/Product_Images/ove-glove.jpeg" class="img-fluid" alt="Orginal" ><br>
+                        <p>Original from manufacturer</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <img src="" class="img-flui fake" height="354" alt="Fake"><br>
+                        <p class="text-center fakeFrom">Counterfeit product</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+     </div>
           <br>
           <p>If you feel the <span id="SCORE_CATEGORY" class="fw-bold"></span> rating is incorrect, you may submit your rating along with a detailed statement as to why the rating should be changed.</p>
           <br>
-            <div class="card mb-">
+            <div class="card">
               <div class="card-body">
                 <h5 class="card-title">Rating Change</h5>
                 <div class="form-check form-check-inline">
@@ -779,6 +797,31 @@ function getByVendor(vendor){
                 var variancePercentage = (Math.random() * 20) - 80; // Random variance between -10% and +10%
                 var newPrice = originalPrice + (originalPrice * variancePercentage / 100);
                 var newPrice = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(newPrice.toFixed(2)); 
+                if(data.PRODUCT_NAME == 'Ove Glove'){
+                        $('.imageCompare').show();  
+                        if(data.VENDOR_NAME == 'Amazon'){
+                            $('.fake').attr('src', 'assets/images/Product_Images/Amazon.jpeg');
+                            $('.fakeFrom').text('Image from Amazon');
+                        }else if(data.VENDOR_NAME == 'Walmart'){
+                            $('.fake').attr('src', 'assets/images/Product_Images/Walmart.jpg');
+                            $('.fakeFrom').text('Image from Walmart');
+                        }else if(data.VENDOR_NAME == 'Ebay'){
+                            $('.fake').attr('src', 'assets/images/Product_Images/ebay.jpg');
+                            $('.fakeFrom').text('Image from Ebay');
+                        }else if(data.VENDOR_NAME == 'Sears'){
+                            $('.fake').attr('src', 'assets/images/Product_Images/Sears.jpeg');
+                            $('.fakeFrom').text('Image from Sears');
+                        }else if(data.VENDOR_NAME == 'Shien'){
+                            $('.fake').attr('src', 'assets/images/Product_Images/Shien.jpg');
+                            $('.fakeFrom').text('Image from Shien');
+                        }else if(data.VENDOR_NAME == 'alibaba'){
+                            $('.fake').attr('src', 'assets/images/Product_Images/alibaba.jpg');
+                            $('.fakeFrom').text('Image from Alibaba');
+                        }else{
+                            $('.fake').attr('src', 'assets/images/Product_Images/fake_oveGlove.webp');
+                            $('.fakeFrom').text('Counterfeit product');
+                        }
+                    }
                 
                 $('#VENDOR_NAME').text(data.VENDOR_NAME);
                 $('#VendorName').text(data.VENDOR_NAME);
@@ -942,6 +985,31 @@ function getByVendor(vendor){
                     $('.SCORE_CATEGORY').html(data.SCORE_CATEGORY);
                     getByVendor(vendorName=data.VENDOR_NAME, rl);
                     $('#vendorReport').modal('show');
+                    if(data.PRODUCT_NAME == 'Ove Glove'){
+                        $('.imageCompare').show();  
+                        if(data.VENDOR_NAME == 'Amazon'){
+                            $('.fake').attr('src', 'assets/images/Product_Images/Amazon.jpeg');
+                            $('.fakeFrom').text('Image from Amazon');
+                        }else if(data.VENDOR_NAME == 'Walmart'){
+                            $('.fake').attr('src', 'assets/images/Product_Images/Walmart.jpg');
+                            $('.fakeFrom').text('Image from Walmart');
+                        }else if(data.VENDOR_NAME == 'Ebay'){
+                            $('.fake').attr('src', 'assets/images/Product_Images/ebay.jpg');
+                            $('.fakeFrom').text('Image from Ebay');
+                        }else if(data.VENDOR_NAME == 'Sears'){
+                            $('.fake').attr('src', 'assets/images/Product_Images/Sears.jpeg');
+                            $('.fakeFrom').text('Image from Sears');
+                        }else if(data.VENDOR_NAME == 'Shien'){
+                            $('.fake').attr('src', 'assets/images/Product_Images/Shien.jpg');
+                            $('.fakeFrom').text('Image from Shien');
+                        }else if(data.VENDOR_NAME == 'alibaba'){
+                            $('.fake').attr('src', 'assets/images/Product_Images/alibaba.jpg');
+                            $('.fakeFrom').text('Image from Alibaba');
+                        }else{
+                            $('.fake').attr('src', 'assets/images/Product_Images/fake_oveGlove.webp');
+                            $('.fakeFrom').text('Counterfeit product');
+                        }
+                    }
                     
                 });
             },
